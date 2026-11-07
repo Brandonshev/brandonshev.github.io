@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Brandon Shevelev’s project shelf. Mac apps, experiments, tools and the occasional game.">
+  <meta name="theme-color" content="#f5f3ec">
+  <title>Brandon Shevelev — Project Shelf</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="identity" href="./"><img src="assets/mark.svg" width="34" height="34" alt=""> Brandon Shevelev</a>
+    <nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a><a href="https://github.com/Brandonshev">GitHub ↗</a></nav>
+  </header>
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="eyebrow"><span class="dot"></span> The project shelf <span class="hero-index">Index / 01</span></div>
+      <h1 id="title">Things I’ve<br>been <em>building.</em></h1>
+      <div class="hero-bottom"><p>Hey, I’m Brandon. Here’s a look at my Mac apps, web experiments, games and the little tools in between.</p><a class="pill primary" href="#projects">Explore projects <span aria-hidden="true">↓</span></a></div>
+    </section>
+    <section class="feature" aria-labelledby="featured-title">
+      <div class="feature-copy">
+        <span class="label"><span class="dot"></span> Featured build / 01</span>
+        <h2 id="featured-title">Scout</h2>
+        <p>A Python paper-trading bot that scans the market, manages risk and explains why it made each simulated trade.</p>
+        <div class="feature-links"><a class="pill" href="#demo-scout">Watch the demo <span aria-hidden="true">↓</span></a><a href="https://github.com/Brandonshev/scout">Source code ↗</a></div>
+      </div>
+      <a class="feature-shot" href="#demo-scout" aria-label="Watch the Scout dashboard demo">
+        <div class="window-label"><span>● ● ●</span><span>scout / dashboard</span><span>01</span></div>
+        <img src="assets/scout.jpg" width="1280" height="800" alt="Scout dashboard with account metrics, market mood and positions">
+      </a>
+    </section>
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <div class="eyebrow">01 / The index</div>
+      <h2 id="projects-title">Projects<span>.</span></h2>
+      <div class="controls">
+        <div class="filters" aria-label="Filter by category">
+          <button type="button" data-filter="All" aria-pressed="true">All</button>
+          <button type="button" data-filter="Apps" aria-pressed="false">Apps</button>
+          <button type="button" data-filter="Web & TV" aria-pressed="false">Web &amp; TV</button>
+          <button type="button" data-filter="Tools" aria-pressed="false">Tools</button>
+        </div>
+        <label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">Search projects</span><input id="search" type="search" placeholder="Find a project…"></label>
+      </div>
+      <p id="count" class="count" aria-live="polite"></p>
+      <div id="project-list" class="project-list"></div>
+      <noscript><p>Enable JavaScript to filter and view the project index.</p></noscript>
+    </section>
+    <section class="screening" id="demos" aria-labelledby="demo-title">
+      <div class="eyebrow">02 / Screen recordings</div>
+      <h2 id="demo-title">In action<span>.</span></h2>
+      <div class="demo-grid">
+        <article id="demo-scout">
+          <video controls playsinline preload="none" poster="assets/scout.jpg" aria-label="Scout dashboard walkthrough"><source src="assets/scout.mp4" type="video/mp4"></video>
+          <h3>Scout</h3><p>See market mood, simulated positions and trade history in the real dashboard, using synthetic test data.</p>
+        </article>
+        <article id="demo-orbit">
+          <video controls playsinline preload="none" poster="assets/orbit.jpg" aria-label="Orbit TV Launcher browser walkthrough"><source src="assets/orbit.mp4" type="video/mp4"></video>
+          <h3>Orbit TV Launcher</h3><p>Move between planets in the launcher’s browser preview using the same arrow controls as the TV remote.</p>
+        </article>
+        <article id="demo-dot">
+          <video controls playsinline preload="none" poster="assets/dot.jpg" aria-label="Dot Matrix Home browser walkthrough"><source src="assets/dot.mp4" type="video/mp4"></video>
+          <h3>Dot Matrix Home</h3><p>Browse the sample app list and watch the dot-matrix home screen change colour as the selection moves.</p>
+        </article>
+      </div>
+    </section>
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div><div class="eyebrow">03 / The person</div><h2 id="about-title">About me<span>.</span></h2></div>
+      <div><p class="about-copy">I’m Brandon Shevelev.</p><p>A bit more about me coming soon.</p><a class="pill" href="https://github.com/Brandonshev">Find me on GitHub ↗</a></div>
+    </section>
+  </main>
+  <footer class="wrap footer"><span>Brandon Shevelev</span><a href="#main">Back to top ↑</a><span id="version">v1.0.0</span></footer>
+</body>
+</html>
