@@ -36,15 +36,15 @@
     <section class="wrap hero" id="top" aria-labelledby="title">
       <div class="reveal">
         <span class="kicker mono"><span class="led" aria-hidden="true"></span>Project shelf · Sydney</span>
-        <h1 id="title" style="margin-top:16px">I build Mac apps, TV launchers, trading bots and <span class="hl">Roblox games</span></h1>
-        <p>Most of these started as something I wanted on my own desk or TV. Every project below has a small working demo you can poke at.</p>
+        <h1 id="title" style="margin-top:16px">If something annoys me, I <span class="hl">build an app</span> for it</h1>
+        <p>Mac apps, iPhone apps, TV launchers, a trading bot and Roblox games. Every project below has a small working demo you can poke at.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#work">See the work</a>
           <a class="btn btn-secondary" href="#contact">Get in touch</a>
         </div>
         <div class="hero-meta mono">
-          <span><b id="count-projects">18</b> projects</span>
-          <span><b>4</b> Roblox games</span>
+          <span><b id="count-projects">20</b> projects</span>
+          <span><b>5</b> Roblox games</span>
           <span><b>macOS · iOS · Tizen · webOS</b></span>
         </div>
       </div>
@@ -53,31 +53,31 @@
         <div class="board-screen"><canvas id="board" width="760" height="300"></canvas></div>
         <figcaption class="board-foot">
           <div><span class="mono" id="board-stack">Python</span><p id="board-desc">Paper trading with market scans, risk limits and plain-English trade explanations.</p></div>
-          <a class="link" id="board-link" href="#p-scout">Open<svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          <a class="link" id="board-link" href="#featured">Open<svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
         </figcaption>
         <div class="board-dots" id="board-dots" role="group" aria-label="Choose a project"></div>
       </figure>
     </section>
 
-    <section class="section" id="p-scout" aria-labelledby="scout-title">
+    <section class="section" id="featured" aria-labelledby="f-name" aria-roledescription="carousel">
       <div class="wrap feature">
-        <div>
-          <span class="kicker mono"><span class="led" aria-hidden="true"></span>Featured build</span>
-          <h3 id="scout-title">Scout</h3>
-          <p>A Python paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.</p>
-          <ul>
-            <li><span class="mono">01</span>Reads market mood before it considers a coin</li>
-            <li><span class="mono">02</span>Shortlists coins and says why each one made the cut</li>
-            <li><span class="mono">03</span>Compares the account against just holding Bitcoin</li>
-          </ul>
-          <div class="feature-actions">
-            <a class="btn btn-primary" href="https://github.com/Brandonshev/scout">View source</a>
-            <span class="mono" style="color:var(--muted)">Python · synthetic test data</span>
+        <div class="feature-copy">
+          <span class="kicker mono"><span class="led" aria-hidden="true"></span>Featured <span id="f-idx" style="color:var(--text-2)">01 / 20</span></span>
+          <div id="f-copy" aria-live="polite">
+            <h3 id="f-name">Scout</h3>
+            <span class="mono" id="f-stack" style="color:var(--muted)">Python</span>
+            <p id="f-desc"></p>
+            <div class="feature-actions" id="f-actions"></div>
+          </div>
+          <div class="carousel-nav">
+            <button type="button" class="nav-btn" id="f-prev" aria-label="Previous project"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button type="button" class="nav-btn" id="f-next" aria-label="Next project"><svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+            <span class="f-progress"><i id="f-bar"></i></span>
           </div>
         </div>
         <div class="window">
-          <div class="window-bar mono"><span class="lights"><i></i><i></i><i></i></span>scout / dashboard</div>
-          <video src="assets/scout.mp4" poster="assets/scout.jpg" muted loop playsinline preload="none" id="scout-video" aria-label="Scout dashboard walkthrough with market mood, positions and trade history"></video>
+          <div class="window-bar mono"><span class="lights"><i></i><i></i><i></i></span><span id="f-path">scout / dashboard</span><span id="f-kind" style="margin-left:auto"></span></div>
+          <div class="f-view" id="f-view"></div>
         </div>
       </div>
     </section>
@@ -87,7 +87,7 @@
         <div class="section-head">
           <div>
             <span class="kicker mono"><span class="led" aria-hidden="true"></span>The shelf</span>
-            <h2 id="work-title">Everything else I’ve built</h2>
+            <h2 id="work-title">Everything I’ve built</h2>
             <p>Each card runs a small demo of what the app does. Some you can click or drag.</p>
           </div>
           <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
@@ -127,7 +127,7 @@
             <div class="fact"><span class="mono">Mac apps</span><b id="fact-mac">7</b><span>Swift, mostly menu bar</span></div>
             <div class="fact"><span class="mono">iPhone apps</span><b id="fact-ios">3</b><span>SwiftUI and Expo</span></div>
             <div class="fact"><span class="mono">TV and web</span><b id="fact-web">5</b><span>Samsung, LG and the browser</span></div>
-            <div class="fact"><span class="mono">Roblox games</span><b>4</b><span>Luau in Roblox Studio</span></div>
+            <div class="fact"><span class="mono">Roblox games</span><b>5</b><span>One releasing soon</span></div>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@
   <footer class="wrap footer mono">
     <span>Brandon Shevelev</span>
     <a href="#top">Back to top</a>
-    <span id="version">v2.0.0</span>
+    <span id="version">v2.1.0</span>
   </footer>
 
   <dialog id="rec" aria-labelledby="rec-title">

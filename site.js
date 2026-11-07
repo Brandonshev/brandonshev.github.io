@@ -1,5 +1,5 @@
-// Brandon Shevelev · Project Shelf v2.0.0
-const VERSION = "2.0.0";
+// Brandon Shevelev · Project Shelf v2.1.0
+const VERSION = "2.1.0";
 
 /* ---------- Data ---------- */
 const CATS = [
@@ -11,7 +11,8 @@ const CATS = [
 ];
 
 const projects = [
-  { id: "scout", featured: true, cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "Paper trading with market scans, risk limits and plain-English trade explanations.", source: "scout" },
+  { id: "scout", cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "A paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.", source: "scout", rec: { src: "assets/scout.mp4", poster: "assets/scout.jpg", cap: "Market mood, simulated positions and trade history in the real dashboard, using synthetic test data." } },
+  { id: "hsc", cat: "web", name: "HSC Essay Engine", board: "ESSAY ENGINE", stack: "HTML · macOS", desc: "Trains HSC English Advanced essays by breaking them into formulas, then drilling each one until it’s automatic. Runs in the browser or as a Mac app." },
   { id: "orbit", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
   { id: "dot", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
   { id: "crate", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
@@ -37,6 +38,7 @@ const games = [
   { name: "One Cart, Four Drivers", img: "assets/roblox/cart.jpg", place: "100034442423754", tags: "Co-op · 1 to 4 players", desc: "Steer, push and balance one shopping cart across ramps and narrow roads as a team." },
   { name: "Verity Tycoon", img: "assets/roblox/tycoon.jpg", place: "99989610571422", tags: "Tycoon · fan game", desc: "Build a Helper Factory with droppers, pets and mystery buttons. Just don’t trust the Helpers." },
   { name: "Verity Obby", img: "assets/roblox/obby.jpg", place: "88163989898384", tags: "Obby · fan game", desc: "A Verity-themed obstacle course. Practise your jumps and compare runs with a friend." },
+  { soon: true },
 ];
 
 /* ---------- Helpers ---------- */
@@ -149,9 +151,10 @@ function initBoard() {
     const p = list[idx];
     $("#board-stack").textContent = p.stack;
     $("#board-desc").textContent = p.desc;
-    $("#board-link").href = `#p-${p.id}`;
+    $("#board-link").dataset.i = idx;
     [...dots.children].forEach((b, n) => b.setAttribute("aria-current", n === idx ? "true" : "false"));
   }
+  $("#board-link").addEventListener("click", () => carousel.go(+$("#board-link").dataset.i));
   dots.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { select(+b.dataset.i); last = performance.now(); } });
   canvas.closest(".board").addEventListener("mouseenter", () => (hold = true));
   canvas.closest(".board").addEventListener("mouseleave", () => (hold = false));
@@ -178,6 +181,39 @@ function initBoard() {
 
 /* ---------- Demos ---------- */
 const demos = {
+  scout(s, T) {
+    s.innerHTML = `<div class="d-scout"><div><div style="display:flex;gap:20px"><div class="stat"><span>Balance</span><b id="bal">A$1,000</b></div><div class="stat"><span>vs holding BTC</span><b id="vs" style="color:var(--pos)">+0.0%</b></div></div>
+      <svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M0 20H200M0 40H200M0 60H200" stroke="rgba(239,233,222,.06)"/><path id="btc" fill="none" stroke="rgba(239,233,222,.35)" stroke-width="1.5"/><path id="acct" fill="none" stroke="#f5a524" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="mood"><span>Market mood</span><b>RISK_ON</b><div id="pos"></div></div></div>`;
+    const r = rng(11), N = 40, a = [40], b = [40];
+    for (let i = 1; i < N; i++) { b.push(b[i - 1] + (r() - 0.48) * 6); a.push(a[i - 1] + (r() - 0.42) * 4); }
+    const path = (arr, k) => arr.slice(0, k).map((v, i) => `${i ? "L" : "M"}${(i / (N - 1)) * 200} ${80 - Math.max(4, Math.min(76, v))}`).join("");
+    const trades = [["ETH", "long", "+A$4.20"], ["SOL", "long", "+A$5.58"], ["BTC", "long", "−A$1.71"]];
+    let k = 2;
+    T.every(120, () => {
+      k = k >= N ? 2 : k + 1;
+      $("#acct", s).setAttribute("d", path(a, k)); $("#btc", s).setAttribute("d", path(b, k));
+      const bal = 1000 + (a[k - 1] - 40) * 1.6, diff = ((a[k - 1] - b[k - 1]) / 40) * 2;
+      $("#bal", s).textContent = `A$${bal.toLocaleString("en-AU", { maximumFractionDigits: 0 })}`;
+      $("#vs", s).textContent = `${diff >= 0 ? "+" : "−"}${Math.abs(diff).toFixed(1)}%`; $("#vs", s).style.color = diff >= 0 ? "var(--pos)" : "var(--neg)";
+      if (k % 12 === 0) { const t = trades[(k / 12 - 1) % 3]; $("#pos", s).innerHTML = `<div class="pill">${t[0]} ${t[1]}<br><span style="color:${t[2][0] === "+" ? "var(--pos)" : "var(--neg)"}">${t[2]}</span></div>`; }
+    });
+  },
+
+  hsc(s, T) {
+    const parts = [["Concept", "#f5d58a", "Lawson shows"], ["Technique", "#a8d4b5", "through stark imagery of the bush"], ["Effect", "#b9cdea", "that isolation tests resilience"]];
+    s.innerHTML = `<div class="d-hsc"><span class="tag">F1 · Thesis</span><h5>Thesis formula</h5>
+      <div class="formula">${parts.map(([n, c], i) => `${i ? '<span class="plus">+</span>' : ""}<span class="slot" style="--c:${c}">${n}</span>`).join("")}</div>
+      <div class="out" id="out"></div><div class="foot"><span>Drill streak <b id="streak">0</b></span><span>Band 6 check</span></div></div>`;
+    const slots = [...s.querySelectorAll(".slot")], out = $("#out", s); let streak = 0;
+    const run = () => {
+      slots.forEach((x) => x.classList.remove("on")); out.innerHTML = "";
+      parts.forEach(([, c, text], i) => T.after(600 + i * 800, () => { slots[i].classList.add("on"); out.insertAdjacentHTML("beforeend", `${i ? " " : ""}<span style="background:${c}">${text}</span>`); }));
+      T.after(600 + 3 * 800 + 300, () => ($("#streak", s).textContent = ++streak));
+    };
+    run(); T.every(5400, run);
+  },
+
   orbit(s, T) {
     const apps = [["Netflix", "#e50914", 22], ["Disney+", "#3e7bfa", 16], ["YouTube", "#ff4a4a", 18], ["Stremio", "#8d6bf0", 15], ["Stan", "#2c8cf0", 14], ["Settings", "#c9a35b", 12]];
     s.innerHTML = `<div class="d-orbit"><div class="stars"></div><div class="ring"></div><div class="sun"></div>
@@ -481,7 +517,7 @@ const demos = {
 
 /* ---------- Grid ---------- */
 function renderGrid() {
-  const grid = $("#grid"), list = projects.filter((p) => !p.featured);
+  const grid = $("#grid"), list = projects;
   grid.innerHTML = list.map((p) => `
     <article class="card" id="p-${p.id}" data-cat="${p.cat}">
       <div class="stage" data-demo="${p.id}" aria-hidden="true"></div>
@@ -490,7 +526,7 @@ function renderGrid() {
         <p>${esc(p.desc)}</p>
         <div class="card-actions">
           ${p.rec ? `<button type="button" class="link" data-rec="${p.id}">Watch recording${ICON.play}</button>` : ""}
-          ${p.source ? `<a class="link" href="https://github.com/Brandonshev/${p.source}">Source${ICON.out}</a>` : `<span class="private mono">${ICON.lock}Private repo</span>`}
+          ${p.source ? `<a class="link" href="https://github.com/Brandonshev/${p.source}" target="_blank" rel="noopener">Source${ICON.out}</a>` : `<span class="private mono">${ICON.lock}Private repo</span>`}
         </div>
       </div>
     </article>`).join("");
@@ -523,11 +559,15 @@ function renderGrid() {
 }
 
 function renderGames() {
-  $("#game-list").innerHTML = games.map((g) => `
+  $("#game-list").innerHTML = games.map((g) => g.soon ? `
+    <article class="game soon">
+      <div class="soon-art"><div style="text-align:center"><b>05</b><span class="mono">Releasing soon</span></div></div>
+      <div class="game-body"><span class="tags mono">In development</span><h3>Game five</h3><p>Finished and waiting to be released. The link goes up here when it’s live.</p></div>
+    </article>` : `
     <article class="game">
       <img src="${g.img}" alt="${esc(g.name)} game icon" loading="lazy" width="320" height="320">
       <div class="game-body"><span class="tags mono">${g.tags}</span><h3>${esc(g.name)}</h3><p>${esc(g.desc)}</p>
-      <a class="link" href="https://www.roblox.com/games/${g.place}">Play on Roblox${ICON.out}</a></div>
+      <a class="link" href="https://www.roblox.com/games/${g.place}" target="_blank" rel="noopener">Play on Roblox${ICON.out}</a></div>
     </article>`).join("");
 }
 
@@ -547,8 +587,8 @@ function initExtras() {
   dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); });
   dlg.addEventListener("close", () => vid.pause());
 
-  const scout = $("#scout-video");
-  if (scout && !reduced) new IntersectionObserver(([e]) => (e.isIntersecting ? scout.play().catch(() => {}) : scout.pause()), { threshold: 0.4 }).observe(scout);
+  // Every outside link opens in a new tab
+  document.querySelectorAll('a[href^="http"]').forEach((a) => { a.target = "_blank"; a.rel = "noopener"; });
 
   const btn = $("#copy-email"), label = $("#copy-label");
   btn.onclick = async () => {
@@ -561,7 +601,51 @@ function initExtras() {
   $("#version").textContent = `v${VERSION}`;
 }
 
+/* ---------- Featured carousel ---------- */
+const carousel = { go() {} };
+function initCarousel() {
+  const view = $("#f-view"), bar = $("#f-bar"), DUR = 7000;
+  let idx = 0, T = null, visible = false, hover = false, startAt = 0, timer = 0;
+  const pad = (n) => String(n).padStart(2, "0");
+  function show(i) {
+    idx = (i + projects.length) % projects.length;
+    const p = projects[idx];
+    if (T) T.clear();
+    $("#f-idx").textContent = `${pad(idx + 1)} / ${pad(projects.length)}`;
+    $("#f-copy").innerHTML = `<h3 id="f-name">${esc(p.name)}</h3><span class="mono" style="color:var(--muted)">${esc(p.stack)}</span><p id="f-desc">${esc(p.desc)}</p>
+      <div class="feature-actions">${p.source ? `<a class="btn btn-primary" href="https://github.com/Brandonshev/${p.source}" target="_blank" rel="noopener">View source</a>` : ""}<a class="link" href="#p-${p.id}">See the card${ICON.out}</a>${p.source ? "" : `<span class="private mono" style="color:var(--muted);display:inline-flex;gap:6px;align-items:center">${ICON.lock}Private repo</span>`}</div>`;
+    $("#f-path").textContent = `${p.id} / ${p.rec ? "recording" : "demo"}`;
+    $("#f-kind").textContent = p.rec ? "Screen recording" : "Live demo";
+    if (p.rec) {
+      view.innerHTML = `<video src="${p.rec.src}" poster="${p.rec.poster}" muted loop playsinline autoplay aria-label="${esc(p.rec.cap)}"></video>`;
+      if (!reduced) $("video", view).play().catch(() => {});
+    } else {
+      view.innerHTML = `<div class="big"></div>`;
+      const big = $(".big", view); big.style.transform = `scale(${view.clientWidth / 380})`;
+      T = timers(); try { demos[p.id](big, T); } catch (e) { console.error(e); }
+    }
+    restart();
+  }
+  function restart() {
+    clearTimeout(timer); bar.style.transition = "none"; bar.style.width = "0";
+    if (!visible || hover || reduced) return;
+    void bar.offsetWidth; bar.style.transition = `width ${DUR}ms linear`; bar.style.width = "100%";
+    timer = setTimeout(() => show(idx + 1), DUR);
+  }
+  $("#f-prev").onclick = () => show(idx - 1);
+  $("#f-next").onclick = () => show(idx + 1);
+  const sec = $("#featured");
+  sec.addEventListener("mouseenter", () => { hover = true; restart(); });
+  sec.addEventListener("mouseleave", () => { hover = false; restart(); });
+  sec.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") show(idx - 1); if (e.key === "ArrowRight") show(idx + 1); });
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; restart(); }, { threshold: 0.3 }).observe(sec);
+  addEventListener("resize", () => { const big = $(".big", view); if (big) big.style.transform = `scale(${view.clientWidth / 380})`; });
+  carousel.go = show;
+  show(0);
+}
+
 renderGrid();
 renderGames();
 initBoard();
+initCarousel();
 initExtras();
