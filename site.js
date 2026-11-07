@@ -1,7 +1,9 @@
-// Project Shelf v2.2.0
-const VERSION = "2.2.0";
+// Project Shelf v2.2.1
+const VERSION = "2.2.1";
 
 /* ---------- Data ---------- */
+// One line per filter: label, and the short note shown in the About panel
+const CAT_NOTES = { mac: "Swift, mostly menu bar", ios: "SwiftUI and Expo", web: "Samsung, LG and browser", tools: "Bots, scripts and agent skills" };
 const CATS = [
   ["all", "All"],
   ["mac", "Mac"],
@@ -542,7 +544,18 @@ function renderGrid() {
   });
 
   $("#count-projects").textContent = projects.length;
-  $("#fact-mac").textContent = counts.mac; $("#fact-ios").textContent = counts.ios; $("#fact-web").textContent = counts.web;
+  // About panel uses the same categories and counts as the filters, plus Roblox
+  const soon = games.filter((g) => g.soon).length;
+  $("#count-games").textContent = games.length;
+  $("#facts").innerHTML = CATS.filter(([k]) => k !== "all").map(([k, l]) => `
+    <button type="button" class="fact" data-go="${k}"><span class="mono">${l}</span><b>${counts[k] || 0}</b><span>${CAT_NOTES[k]}</span></button>`).join("") + `
+    <a class="fact" href="#games"><span class="mono">Roblox</span><b>${games.length}</b><span>${soon ? `${soon} releasing soon` : "All live"}</span></a>
+    <button type="button" class="fact" data-go="all"><span class="mono">All projects</span><b>${list.length}</b><span>Plus ${games.length} Roblox games</span></button>`;
+  $("#facts").addEventListener("click", (e) => {
+    const f = e.target.closest("[data-go]"); if (!f) return;
+    filters.querySelector(`[data-f="${f.dataset.go}"]`).click();
+    $("#work").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  });
 
   // Run each demo only while it is on screen
   const running = new Map();
