@@ -187,6 +187,8 @@ img, video { display: block; max-width: 100%; }
 
 .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 32px 0 48px; color: var(--muted); }
 .footer nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-centre { justify-content: center; text-align: center; }
+.footer-centre nav { justify-content: center; }
 .footer a { transition: color 150ms var(--ease); }
 .footer a:hover { color: var(--text); }
 

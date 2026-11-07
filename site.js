@@ -1,5 +1,5 @@
-// Project Shelf v2.2.1
-const VERSION = "2.2.1";
+// Project Shelf v2.2.2
+const VERSION = "2.2.2";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -550,7 +550,7 @@ function renderGrid() {
   $("#facts").innerHTML = CATS.filter(([k]) => k !== "all").map(([k, l]) => `
     <button type="button" class="fact" data-go="${k}"><span class="mono">${l}</span><b>${counts[k] || 0}</b><span>${CAT_NOTES[k]}</span></button>`).join("") + `
     <a class="fact" href="#games"><span class="mono">Roblox</span><b>${games.length}</b><span>${soon ? `${soon} releasing soon` : "All live"}</span></a>
-    <button type="button" class="fact" data-go="all"><span class="mono">All projects</span><b>${list.length}</b><span>Plus ${games.length} Roblox games</span></button>`;
+    <button type="button" class="fact" data-go="all"><span class="mono">In total</span><b>${list.length + games.length}</b><span>(includes ${games.length} Roblox games)</span></button>`;
   $("#facts").addEventListener("click", (e) => {
     const f = e.target.closest("[data-go]"); if (!f) return;
     filters.querySelector(`[data-f="${f.dataset.go}"]`).click();
