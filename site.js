@@ -1,5 +1,5 @@
-// Brandon Shevelev · Project Shelf v2.1.0
-const VERSION = "2.1.0";
+// Project Shelf v2.2.0
+const VERSION = "2.2.0";
 
 /* ---------- Data ---------- */
 const CATS = [
@@ -598,7 +598,7 @@ function initExtras() {
     label.innerHTML = `${ICON.check}Copied`;
     setTimeout(() => (label.innerHTML = `${ICON.copy}Copy`), 2000);
   };
-  $("#version").textContent = `v${VERSION}`;
+  document.documentElement.dataset.version = VERSION; // for debugging: check <html data-version>
 }
 
 /* ---------- Featured carousel ---------- */

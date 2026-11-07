@@ -1,4 +1,4 @@
-/* Brandon Shevelev · Project Shelf v2.0.0 */
+/* Project Shelf v2.2.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -184,7 +184,24 @@ img, video { display: block; max-width: 100%; }
 .contact-links { display: flex; gap: 20px; justify-content: center; }
 
 .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 32px 0 48px; color: var(--muted); }
+.footer nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer a { transition: color 150ms var(--ease); }
 .footer a:hover { color: var(--text); }
+
+/* Legal page */
+.legal { max-width: 720px; padding: 64px 0 96px; }
+.legal h1 { font: 500 clamp(36px, 4vw, 48px)/1.1 var(--display); letter-spacing: -0.02em; margin: 16px 0 16px; }
+.legal .meta { color: var(--muted); display: grid; gap: 4px; margin-bottom: 32px; }
+.legal .toc { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+.legal .toc a { height: 32px; padding: 0 12px; border-radius: 8px; display: inline-flex; align-items: center; background: var(--raised); border: 1px solid var(--line-strong); font-size: 14px; color: var(--text-2); transition: color 150ms var(--ease); }
+.legal .toc a:hover { color: var(--text); }
+.legal section { padding-top: 40px; border-top: 1px solid var(--line); margin-top: 40px; }
+.legal h2 { font: 500 28px/1.2 var(--display); letter-spacing: -0.01em; margin: 0 0 8px; }
+.legal h3 { font: 500 17px/1.4 var(--sans); margin: 28px 0 8px; color: var(--text); }
+.legal p { color: var(--text-2); font-size: 16px; line-height: 26px; margin: 0 0 12px; }
+.legal p a, .legal .sources a { color: var(--text); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.legal p a:hover, .legal .sources a:hover { text-decoration-color: var(--amber); }
+.legal .sources { font-size: 14px; color: var(--muted); }
 
 /* Recording dialog */
 dialog { border: 1px solid var(--line-strong); border-radius: 16px; padding: 0; background: var(--card); color: var(--text); width: min(960px, calc(100% - 32px)); box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6); }
