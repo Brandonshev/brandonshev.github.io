@@ -1,5 +1,5 @@
-// Project Shelf v2.2.2
-const VERSION = "2.2.2";
+// Showoff v2.3.0
+const VERSION = "2.3.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel

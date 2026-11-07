@@ -1,4 +1,4 @@
-/* Project Shelf v2.2.0 */
+/* Showoff v2.3.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -185,10 +185,8 @@ img, video { display: block; max-width: 100%; }
 .email-btn { justify-content: space-between; font-family: var(--mono); font-size: 14px; }
 .contact-links { display: flex; gap: 20px; justify-content: center; }
 
-.footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 32px 0 48px; color: var(--muted); }
-.footer nav { display: flex; gap: 24px; flex-wrap: wrap; }
-.footer-centre { justify-content: center; text-align: center; }
-.footer-centre nav { justify-content: center; }
+.footer { width: 100%; padding: 32px 16px 48px; color: var(--muted); text-align: center; }
+.footer nav { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
 .footer a { transition: color 150ms var(--ease); }
 .footer a:hover { color: var(--text); }
 
