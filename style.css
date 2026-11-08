@@ -1,4 +1,4 @@
-/* Showoff v2.3.0 */
+/* Showoff v2.4.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -515,3 +515,42 @@ dialog video { width: 100%; background: #000; aspect-ratio: 16 / 10; }
 .d-hsc .out span { transition: background-color 300ms var(--ease); border-radius: 3px; }
 .d-hsc .foot { position: absolute; left: 14px; right: 14px; bottom: 10px; display: flex; justify-content: space-between; font: 11px var(--mono); color: #7b7266; }
 .d-hsc .foot b { color: #c27a0a; font-weight: 500; }
+
+/* Reply Bell */
+.d-bell .banner { position: absolute; left: 50%; top: 34px; transform: translate(-50%, -64px); display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 8px; border-radius: 10px; font-size: 12px; font-weight: 500; color: #0e1a12; background: #4cc38a; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); z-index: 4; white-space: nowrap; transition: transform 380ms var(--ease); }
+.d-bell .banner.input { background: var(--amber); color: #1a1205; }
+.d-bell .banner.on { transform: translate(-50%, 0); }
+.d-bell .b-ico { width: 18px; height: 18px; border-radius: 50%; background: rgba(0, 0, 0, 0.18); display: grid; place-items: center; font-size: 11px; font-weight: 600; }
+.d-bell .chat { position: absolute; left: 16px; top: 76px; width: 210px; bottom: -10px; background: var(--card); border: 1px solid var(--line-strong); border-radius: 10px; padding: 0 10px; }
+.d-bell .chat-top { display: flex; align-items: center; height: 26px; color: var(--muted); font-size: 10px; }
+.d-bell .msg { font-size: 11px; line-height: 15px; margin: 6px 0; }
+.d-bell .msg.me { margin-left: auto; width: fit-content; background: var(--raised); border-radius: 8px; padding: 4px 8px; color: var(--text); }
+.d-bell .msg.ai i { display: block; height: 5px; border-radius: 3px; background: var(--raised); margin: 6px 0; transform-origin: left; transition: transform 400ms var(--ease); }
+.d-bell .composer { display: flex; justify-content: space-between; align-items: center; height: 28px; border: 1px solid var(--line); border-radius: 8px; padding: 0 4px 0 8px; font-size: 10px; color: var(--muted); }
+.d-bell .ctrl { width: 18px; height: 18px; border-radius: 50%; background: var(--text); position: relative; }
+.d-bell .ctrl.stop::after { content: ""; position: absolute; inset: 6px; border-radius: 1px; background: var(--bg); }
+.d-bell .ctrl.send::after { content: ""; position: absolute; left: 5px; top: 4px; border: 4px solid transparent; border-bottom: 6px solid var(--bg); border-top: 0; }
+.d-bell .hint { position: absolute; right: 16px; top: 140px; width: 96px; text-align: right; line-height: 16px; color: var(--muted); font-size: 11px; }
+
+/* StudyLock */
+.d-lock .phone { top: 10px; }
+.d-lock .screen { background: #f4f2ee; padding: 22px 9px 9px; }
+.d-lock .lk-head { display: flex; flex-direction: column; margin-bottom: 6px; }
+.d-lock .lk-head b { font: 600 11px/14px var(--display); }
+.d-lock .lk-head .mono { font-size: 9px; color: #7b7266; }
+.d-lock .lk-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.d-lock .lk-app { position: relative; display: grid; justify-items: center; gap: 2px; font-size: 7px; color: #3a342c; }
+.d-lock .lk-app i { width: 22px; height: 22px; border-radius: 7px; display: block; filter: grayscale(1) brightness(0.55); opacity: 0.6; transition: filter 400ms var(--ease), opacity 400ms var(--ease); }
+.d-lock .lk-app small { font-size: 7px; }
+.d-lock .lk-lock { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: #fff; width: 12px; height: 12px; transition: opacity 300ms var(--ease); }
+.d-lock .lk-lock svg { width: 12px; height: 12px; }
+.d-lock.open .lk-app i { filter: none; opacity: 1; }
+.d-lock.open .lk-lock { opacity: 0; }
+.d-lock .lk-quiz { margin-top: 8px; background: #fff; border-radius: 8px; padding: 6px; font-size: 8px; }
+.d-lock .lk-row { display: flex; justify-content: space-between; color: #1f1b16; }
+.d-lock .lk-row .mono { font-size: 9px; font-weight: 500; }
+.d-lock .lk-bar { position: relative; height: 4px; border-radius: 2px; background: rgba(31, 27, 22, 0.1); margin: 5px 0 4px; }
+.d-lock .lk-bar i { display: block; height: 100%; width: 0; border-radius: 2px; background: #c27a0a; transition: width 400ms var(--ease); }
+.d-lock.open .lk-bar i { background: #16a34a; }
+.d-lock .lk-goal { position: absolute; left: 90%; top: -2px; width: 1.5px; height: 8px; background: #1f1b16; }
+.d-lock .lk-note { font-size: 8px; color: #7b7266; }

@@ -1,5 +1,5 @@
-// Showoff v2.3.0
-const VERSION = "2.3.0";
+// Showoff v2.4.0
+const VERSION = "2.4.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -23,9 +23,11 @@ const projects = [
   { id: "farsight", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
   { id: "switchboard", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
   { id: "promptshelf", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
+  { id: "replybell", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
   { id: "knockswitch", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
   { id: "pocket", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
+  { id: "studylock", cat: "ios", name: "StudyLock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "Locks distracting apps with Screen Time while you study, and only unlocks them once you score 90% or more on a quiz made from your own notes and the HSC syllabus." },
   { id: "commons", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
   { id: "study", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
   { id: "leviathan", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
@@ -68,6 +70,7 @@ const small = {
   copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   bt: '<path d="m7 7 10 10-5 5V2l5 5L7 17"/>',
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
 };
 const svg = (n) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${small[n]}</svg>`;
 
@@ -214,6 +217,51 @@ const demos = {
       T.after(600 + 3 * 800 + 300, () => ($("#streak", s).textContent = ++streak));
     };
     run(); T.every(5400, run);
+  },
+
+  replybell(s, T) {
+    s.innerHTML = `<div class="d-bell" style="position:absolute;inset:0">
+      <div class="menubar"><span class="mb-ico active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="mb-ico">${svg("wifi")}</span><span class="mono" style="font-size:11px">12:30</span></div>
+      <div class="banner"><span class="b-ico"></span><span class="b-text"></span></div>
+      <div class="chat"><div class="chat-top"><span class="lights"><i></i><i></i><i></i></span><span class="mono" id="app">Claude</span></div>
+        <div class="msg me">Can you tidy up this function?</div><div class="msg ai"><i style="width:80%"></i><i style="width:64%"></i><i style="width:72%"></i></div>
+        <div class="composer"><span id="cstate">Generating</span><span class="ctrl" id="ctrl"></span></div></div>
+      <span class="hint mono" id="hint">You’re in another app</span></div>`;
+    const el = $(".d-bell", s), banner = $(".banner", s), lines = [...s.querySelectorAll(".msg.ai i")];
+    const rounds = [["Claude", "done", "Claude finished replying"], ["Codex", "input", "Codex needs your approval"], ["Gemini", "done", "Gemini finished replying"]];
+    let k = 0;
+    const run = () => {
+      const [app, kind, text] = rounds[k++ % rounds.length];
+      $("#app", s).textContent = app; banner.className = "banner"; el.classList.add("gen");
+      $("#cstate", s).textContent = "Generating"; $("#ctrl", s).className = "ctrl stop";
+      lines.forEach((l) => (l.style.transform = "scaleX(0)"));
+      lines.forEach((l, i) => T.after(300 + i * 500, () => (l.style.transform = "scaleX(1)")));
+      T.after(1900, () => {
+        el.classList.remove("gen"); $("#cstate", s).textContent = kind === "input" ? "Waiting for approval" : "Ready"; $("#ctrl", s).className = "ctrl send";
+        $(".b-ico", banner).textContent = kind === "input" ? "!" : "✓"; $(".b-text", banner).textContent = text;
+        banner.className = `banner on ${kind}`;
+      });
+      T.after(4200, () => (banner.className = "banner"));
+    };
+    run(); T.every(4800, run);
+  },
+
+  studylock(s, T) {
+    const apps = [["#e1306c", "Insta"], ["#111", "TikTok"], ["#ff0033", "YouTube"], ["#fffc00", "Snap"], ["#1d9bf0", "X"], ["#5865f2", "Discord"]];
+    s.innerHTML = `<div class="d-lock"><div class="phone"><span class="island"></span><div class="screen">
+      <div class="lk-head"><b id="lk-title">Studying</b><span class="mono" id="lk-sub">Maths Adv · 42:10</span></div>
+      <div class="lk-apps">${apps.map(([c, n]) => `<span class="lk-app"><i style="background:${c}"></i><em class="lk-lock">${svg("lock")}</em><small>${n}</small></span>`).join("")}</div>
+      <div class="lk-quiz"><div class="lk-row"><span>Quiz on your notes</span><span class="mono" id="lk-score">0%</span></div><div class="lk-bar"><i id="lk-fill"></i><span class="lk-goal"></span></div><span class="mono lk-note" id="lk-note">Unlocks at 90%</span></div>
+    </div></div></div>`;
+    const el = $(".d-lock", s), score = $("#lk-score", s), fill = $("#lk-fill", s), note = $("#lk-note", s);
+    const run = () => {
+      el.classList.remove("open"); $("#lk-title", s).textContent = "Studying"; note.textContent = "Unlocks at 90%";
+      let v = 0; score.textContent = "0%"; fill.style.width = "0";
+      const steps = [22, 45, 67, 83, 92];
+      steps.forEach((x, i) => T.after(700 + i * 450, () => { v = x; score.textContent = `${v}%`; fill.style.width = `${v}%`; }));
+      T.after(700 + steps.length * 450 + 200, () => { el.classList.add("open"); $("#lk-title", s).textContent = "Done"; note.textContent = "Passed · apps unlocked"; });
+    };
+    run(); T.every(6200, run);
   },
 
   orbit(s, T) {
