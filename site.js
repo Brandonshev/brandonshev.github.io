@@ -1,13 +1,13 @@
-// Showoff v2.5.1
-const VERSION = "2.5.1";
+// Showoff v2.6.0
+const VERSION = "2.6.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
-const CAT_NOTES = { mac: "Swift, mostly menu bar", ios: "SwiftUI and Expo", web: "Samsung, LG and browser", tools: "Bots, scripts and agent skills" };
+const CAT_NOTES = { mac: "Swift, mostly menu bar", ios: "SwiftUI, PencilKit and Expo", web: "Samsung, LG and browser", tools: "Bots, scripts and agent skills" };
 const CATS = [
   ["all", "All"],
   ["mac", "Mac"],
-  ["ios", "iPhone"],
+  ["ios", "iPhone and iPad"],
   ["web", "TV and web"],
   ["tools", "Tools"],
 ];
@@ -17,7 +17,7 @@ const PICKS = ["orbit", "scout"];
 
 const projects = [
   { id: "scout", added: "2026-10-04T15:08:42Z", cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "A paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.", source: "scout", rec: { src: "assets/scout.mp4", poster: "assets/scout.jpg", cap: "Market mood, simulated positions and trade history in the real dashboard, using synthetic test data." } },
-  { id: "hsc", added: "2026-11-07T14:25:05Z", cat: "web", name: "HSC Essay Engine", board: "ESSAY ENGINE", stack: "HTML · macOS", desc: "Trains HSC English Advanced essays by breaking them into formulas, then drilling each one until it’s automatic. Runs in the browser or as a Mac app." },
+  { id: "hsc", added: "2026-11-07T14:24:48Z", source: "hsc-essay-engine", cat: "web", name: "HSC Essay Engine", board: "ESSAY ENGINE", stack: "HTML · macOS", desc: "Trains HSC English Advanced essays by breaking them into formulas, then drilling each one until it’s automatic. Runs in the browser or as a Mac app." },
   { id: "orbit", added: "2026-11-07T12:42:06Z", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
   { id: "dot", added: "2026-11-07T12:42:00Z", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
   { id: "crate", added: "2026-11-07T02:37:42Z", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
@@ -30,6 +30,7 @@ const projects = [
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
   { id: "pocket", added: "2026-11-07T02:37:17Z", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
+  { id: "proofer", added: "2026-11-08T14:04:07Z", cat: "ios", name: "Proofer", board: "PROOFER", stack: "SwiftUI · iPadOS · macOS", desc: "A maths notebook for iPad and Mac. Write your working with Apple Pencil, pin the question, and Proofer checks every line, marking each step right or wrong and explaining exactly where it went wrong." },
   { id: "studylock", added: "2026-11-08T03:25:58Z", cat: "ios", name: "studylock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "A Screen Time study lock for HSC students, with Barnaby the Scholar Quokka. Apps stay locked until you photograph your notes and score 90% on a quiz made from them. Every pass feeds Barnaby and earns gems for his wardrobe." },
   { id: "commons", added: "2026-11-07T02:39:49Z", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
   { id: "study", added: "2026-11-07T02:39:42Z", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
@@ -255,6 +256,26 @@ const demos = {
       T.after(4200, () => (banner.className = "banner"));
     };
     run(); T.every(4800, run);
+  },
+
+  proofer(s, T) {
+    const lines = [["(x − 2)(x − 3) = 0", "ok"], ["x − 2 = 0  or  x − 3 = 0", "ok"], ["x = 2  or  x = −3", "bad"]];
+    s.innerHTML = `<div class="d-proof">
+      <div class="pf-q"><span class="pf-tag mono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16h14v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>Question</span>Solve x² − 5x + 6 = 0</div>
+      ${lines.map(([t, k]) => `<div class="pf-line" data-k="${k}"><span class="pf-ink">${t}</span><span class="pf-mark"></span></div>`).join("")}
+      <button type="button" class="pf-btn" tabindex="-1">Check working</button>
+      <div class="pf-card"><b>Step 3 · Sign error</b><span>x − 3 = 0 gives x = 3, not −3</span></div></div>`;
+    const el = $(".d-proof", s), ls = [...s.querySelectorAll(".pf-line")], btn = $(".pf-btn", s);
+    const run = () => {
+      el.classList.remove("checked"); btn.classList.remove("press");
+      ls.forEach((l) => { l.classList.remove("on", "ok", "bad"); });
+      ls.forEach((l, i) => T.after(300 + i * 700, () => l.classList.add("on")));
+      T.after(2500, () => btn.classList.add("press"));
+      T.after(2800, () => btn.classList.remove("press"));
+      ls.forEach((l, i) => T.after(3000 + i * 350, () => l.classList.add(l.dataset.k)));
+      T.after(3000 + ls.length * 350 + 150, () => el.classList.add("checked"));
+    };
+    run(); T.every(7200, run);
   },
 
   studylock(s, T) {

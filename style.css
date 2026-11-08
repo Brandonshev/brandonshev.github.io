@@ -1,4 +1,4 @@
-/* Showoff v2.5.1 */
+/* Showoff v2.6.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -561,3 +561,23 @@ dialog video { width: 100%; background: #000; aspect-ratio: 16 / 10; }
 .card-actions .date { margin-left: auto; color: var(--muted); }
 .card.flash { animation: flash 1400ms var(--ease); }
 @keyframes flash { 0%, 30% { border-color: var(--amber); } 100% { border-color: var(--line); } }
+
+/* Proofer */
+.d-proof { position: absolute; inset: 0; padding: 14px 16px; background-color: #faf8f2; background-image: linear-gradient(rgba(79, 70, 229, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(79, 70, 229, 0.08) 1px, transparent 1px); background-size: 16px 16px; color: #14296b; }
+.d-proof .pf-q { display: flex; align-items: center; gap: 10px; border: 1.5px dashed #7c3aed; background: rgba(124, 58, 237, 0.08); border-radius: 8px; padding: 6px 10px; font: 400 16px/1.2 "Newsreader", Georgia, serif; margin-bottom: 8px; width: fit-content; }
+.d-proof .pf-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #7c3aed; }
+.d-proof .pf-tag svg { width: 11px; height: 11px; }
+.d-proof .pf-line { display: flex; align-items: center; gap: 10px; height: 28px; font: 400 18px/1 "Newsreader", Georgia, serif; }
+.d-proof .pf-ink { display: inline-block; clip-path: inset(0 100% 0 0); transition: clip-path 600ms linear; padding: 2px 4px; border-radius: 4px; }
+.d-proof .pf-line.on .pf-ink { clip-path: inset(0 0 0 0); }
+.d-proof .pf-mark { width: 18px; height: 18px; border-radius: 50%; transform: scale(0); transition: transform 240ms var(--ease); display: grid; place-items: center; color: #fff; font: 600 11px/1 var(--sans); }
+.d-proof .pf-line.ok .pf-mark { transform: scale(1); background: #10b981; }
+.d-proof .pf-line.ok .pf-mark::after { content: "✓"; }
+.d-proof .pf-line.bad .pf-mark { transform: scale(1); background: #ef4444; }
+.d-proof .pf-line.bad .pf-mark::after { content: "✕"; }
+.d-proof .pf-line.bad .pf-ink { background: rgba(239, 68, 68, 0.12); box-shadow: inset 0 -2px 0 #ef4444; }
+.d-proof .pf-btn { position: absolute; right: 14px; top: 14px; height: 26px; padding: 0 10px; border-radius: 8px; background: #10b981; color: #fff; font: 500 11px/1 var(--sans); transition: transform 120ms var(--ease); pointer-events: none; }
+.d-proof .pf-btn.press { transform: scale(0.94); }
+.d-proof .pf-card { position: absolute; right: 14px; bottom: 12px; width: 180px; background: #fff; border: 1px solid rgba(20, 41, 107, 0.12); border-left: 3px solid #ef4444; border-radius: 8px; padding: 8px 10px; font-size: 11px; line-height: 15px; color: #3b4466; box-shadow: 0 8px 20px rgba(20, 41, 107, 0.12); opacity: 0; transform: translateY(8px); transition: opacity 300ms var(--ease), transform 300ms var(--ease); }
+.d-proof .pf-card b { display: block; color: #14296b; font-weight: 600; margin-bottom: 2px; }
+.d-proof.checked .pf-card { opacity: 1; transform: none; }
