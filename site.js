@@ -1,5 +1,5 @@
-// Showoff v2.5.0
-const VERSION = "2.5.0";
+// Showoff v2.5.1
+const VERSION = "2.5.1";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -30,7 +30,7 @@ const projects = [
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
   { id: "pocket", added: "2026-11-07T02:37:17Z", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
-  { id: "studylock", added: "2026-11-08T03:25:58Z", cat: "ios", name: "StudyLock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "Locks distracting apps with Screen Time while you study, and only unlocks them once you score 90% or more on a quiz made from your own notes and the HSC syllabus." },
+  { id: "studylock", added: "2026-11-08T03:25:58Z", cat: "ios", name: "studylock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "A Screen Time study lock for HSC students, with Barnaby the Scholar Quokka. Apps stay locked until you photograph your notes and score 90% on a quiz made from them. Every pass feeds Barnaby and earns gems for his wardrobe." },
   { id: "commons", added: "2026-11-07T02:39:49Z", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
   { id: "study", added: "2026-11-07T02:39:42Z", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
   { id: "leviathan", added: "2026-11-07T02:39:54Z", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
@@ -258,21 +258,24 @@ const demos = {
   },
 
   studylock(s, T) {
-    const apps = [["#e1306c", "Insta"], ["#111", "TikTok"], ["#ff0033", "YouTube"], ["#fffc00", "Snap"], ["#1d9bf0", "X"], ["#5865f2", "Discord"]];
+    const needs = [["Thirst", "English", 72], ["Hunger", "Maths", 18], ["Energy", "Economics", 64], ["Rest", "Business", 81], ["Nature", "Geography", 55]];
     s.innerHTML = `<div class="d-lock"><div class="phone"><span class="island"></span><div class="screen">
-      <div class="lk-head"><b id="lk-title">Studying</b><span class="mono" id="lk-sub">Maths Adv · 42:10</span></div>
-      <div class="lk-apps">${apps.map(([c, n]) => `<span class="lk-app"><i style="background:${c}"></i><em class="lk-lock">${svg("lock")}</em><small>${n}</small></span>`).join("")}</div>
-      <div class="lk-quiz"><div class="lk-row"><span>Quiz on your notes</span><span class="mono" id="lk-score">0%</span></div><div class="lk-bar"><i id="lk-fill"></i><span class="lk-goal"></span></div><span class="mono lk-note" id="lk-note">Unlocks at 90%</span></div>
+      <div class="lk-top"><b>studylock</b><span class="mono lk-gems">◆ <span id="lk-gems">240</span></span></div>
+      <div class="lk-pet"><img src="assets/studylock-barnaby.png" alt="" width="32" height="32"><span class="lk-bubble" id="lk-say">My tummy! Maths, please</span></div>
+      <div class="lk-needs">${needs.map(([n, sub, v], i) => `<div class="lk-need${i === 1 ? " low" : ""}"><span>${n} <em>${sub}</em></span><span class="lk-track"><i style="width:${v}%"></i></span></div>`).join("")}</div>
+      <div class="lk-foot mono" id="lk-foot">Apps locked · 25:00 focus</div>
     </div></div></div>`;
-    const el = $(".d-lock", s), score = $("#lk-score", s), fill = $("#lk-fill", s), note = $("#lk-note", s);
+    const el = $(".d-lock", s), say = $("#lk-say", s), foot = $("#lk-foot", s), gems = $("#lk-gems", s);
+    const hunger = s.querySelectorAll(".lk-need")[1], bar = $("i", hunger);
     const run = () => {
-      el.classList.remove("open"); $("#lk-title", s).textContent = "Studying"; note.textContent = "Unlocks at 90%";
-      let v = 0; score.textContent = "0%"; fill.style.width = "0";
-      const steps = [22, 45, 67, 83, 92];
-      steps.forEach((x, i) => T.after(700 + i * 450, () => { v = x; score.textContent = `${v}%`; fill.style.width = `${v}%`; }));
-      T.after(700 + steps.length * 450 + 200, () => { el.classList.add("open"); $("#lk-title", s).textContent = "Done"; note.textContent = "Passed · apps unlocked"; });
+      let total = 240; gems.textContent = total;
+      el.classList.remove("open"); hunger.classList.add("low"); bar.style.width = "18%";
+      say.textContent = "My tummy! Maths, please"; foot.textContent = "Apps locked · 25:00 focus";
+      T.after(1400, () => { say.textContent = "YES! Feeding time! Show me the proof!"; foot.textContent = "3 pages of notes scanned"; });
+      T.after(2800, () => (foot.textContent = "Quiz · 5 questions"));
+      T.after(3800, () => { foot.textContent = "Scored 92% · apps unlocked"; el.classList.add("open"); hunger.classList.remove("low"); bar.style.width = "100%"; total += 115; gems.textContent = total; say.textContent = "Full! +115 gems"; });
     };
-    run(); T.every(6200, run);
+    run(); T.every(6800, run);
   },
 
   orbit(s, T) {
