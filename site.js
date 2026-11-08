@@ -1,5 +1,5 @@
-// Showoff v2.4.0
-const VERSION = "2.4.0";
+// Showoff v2.5.0
+const VERSION = "2.5.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -12,29 +12,32 @@ const CATS = [
   ["tools", "Tools"],
 ];
 
+// Featured carousel: the two newest projects (by `added`) plus these fixed picks
+const PICKS = ["orbit", "scout"];
+
 const projects = [
-  { id: "scout", cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "A paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.", source: "scout", rec: { src: "assets/scout.mp4", poster: "assets/scout.jpg", cap: "Market mood, simulated positions and trade history in the real dashboard, using synthetic test data." } },
-  { id: "hsc", cat: "web", name: "HSC Essay Engine", board: "ESSAY ENGINE", stack: "HTML · macOS", desc: "Trains HSC English Advanced essays by breaking them into formulas, then drilling each one until it’s automatic. Runs in the browser or as a Mac app." },
-  { id: "orbit", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
-  { id: "dot", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
-  { id: "crate", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
-  { id: "barback", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar manager and notch shelf for organising, searching and reaching menu bar items." },
-  { id: "ebb", cat: "mac", name: "Ebb", board: "EBB", stack: "Swift · macOS", desc: "Set a charge limit for a plugged-in MacBook, hold a target charge, or charge to full on demand." },
-  { id: "farsight", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
-  { id: "switchboard", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
-  { id: "promptshelf", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
-  { id: "replybell", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
-  { id: "knockswitch", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
-  { id: "pace", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
-  { id: "pocket", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
-  { id: "studylock", cat: "ios", name: "StudyLock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "Locks distracting apps with Screen Time while you study, and only unlocks them once you score 90% or more on a quiz made from your own notes and the HSC syllabus." },
-  { id: "commons", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
-  { id: "study", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
-  { id: "leviathan", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
-  { id: "linkpocket", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
-  { id: "eyemouse", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
-  { id: "skills", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Two reusable workflows for Claude. One turns NSW syllabuses into study notes, the other sorts saved videos into Notion." },
-  { id: "streamclips", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
+  { id: "scout", added: "2026-10-04T15:08:42Z", cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "A paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.", source: "scout", rec: { src: "assets/scout.mp4", poster: "assets/scout.jpg", cap: "Market mood, simulated positions and trade history in the real dashboard, using synthetic test data." } },
+  { id: "hsc", added: "2026-11-07T14:25:05Z", cat: "web", name: "HSC Essay Engine", board: "ESSAY ENGINE", stack: "HTML · macOS", desc: "Trains HSC English Advanced essays by breaking them into formulas, then drilling each one until it’s automatic. Runs in the browser or as a Mac app." },
+  { id: "orbit", added: "2026-11-07T12:42:06Z", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
+  { id: "dot", added: "2026-11-07T12:42:00Z", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
+  { id: "crate", added: "2026-11-07T02:37:42Z", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
+  { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar manager and notch shelf for organising, searching and reaching menu bar items." },
+  { id: "ebb", added: "2026-11-07T02:37:33Z", cat: "mac", name: "Ebb", board: "EBB", stack: "Swift · macOS", desc: "Set a charge limit for a plugged-in MacBook, hold a target charge, or charge to full on demand." },
+  { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
+  { id: "switchboard", added: "2026-11-07T02:37:50Z", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
+  { id: "promptshelf", added: "2026-11-07T02:55:38Z", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
+  { id: "replybell", added: "2026-11-08T03:06:29Z", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
+  { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
+  { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
+  { id: "pocket", added: "2026-11-07T02:37:17Z", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
+  { id: "studylock", added: "2026-11-08T03:25:58Z", cat: "ios", name: "StudyLock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "Locks distracting apps with Screen Time while you study, and only unlocks them once you score 90% or more on a quiz made from your own notes and the HSC syllabus." },
+  { id: "commons", added: "2026-11-07T02:39:49Z", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
+  { id: "study", added: "2026-11-07T02:39:42Z", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
+  { id: "leviathan", added: "2026-11-07T02:39:54Z", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
+  { id: "linkpocket", added: "2026-11-07T02:40:10Z", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
+  { id: "eyemouse", added: "2026-11-07T02:39:33Z", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
+  { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Two reusable workflows for Claude. One turns NSW syllabuses into study notes, the other sorts saved videos into Notion." },
+  { id: "streamclips", added: "2026-10-04T16:43:52Z", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
 ];
 
 const games = [
@@ -47,6 +50,7 @@ const games = [
 
 /* ---------- Helpers ---------- */
 const $ = (s, el = document) => el.querySelector(s);
+const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric", timeZone: "Australia/Sydney" });
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const ICON = {
@@ -156,10 +160,17 @@ function initBoard() {
     const p = list[idx];
     $("#board-stack").textContent = p.stack;
     $("#board-desc").textContent = p.desc;
-    $("#board-link").dataset.i = idx;
+    $("#board-link").href = `#p-${p.id}`;
+    const cap = $("#board-copy"); cap.classList.remove("swap"); void cap.offsetWidth; cap.classList.add("swap");
     [...dots.children].forEach((b, n) => b.setAttribute("aria-current", n === idx ? "true" : "false"));
   }
-  $("#board-link").addEventListener("click", () => carousel.go(+$("#board-link").dataset.i));
+  $("#board-link").addEventListener("click", (e) => {
+    const card = document.querySelector(e.currentTarget.getAttribute("href")); if (!card) return;
+    e.preventDefault();
+    const all = $('#filters [data-f="all"]'); if (card.hidden && all) all.click();
+    card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+  });
   dots.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { select(+b.dataset.i); last = performance.now(); } });
   canvas.closest(".board").addEventListener("mouseenter", () => (hold = true));
   canvas.closest(".board").addEventListener("mouseleave", () => (hold = false));
@@ -577,6 +588,7 @@ function renderGrid() {
         <div class="card-actions">
           ${p.rec ? `<button type="button" class="link" data-rec="${p.id}">Watch recording${ICON.play}</button>` : ""}
           ${p.source ? `<a class="link" href="https://github.com/Brandonshev/${p.source}" target="_blank" rel="noopener">Source${ICON.out}</a>` : `<span class="private mono">${ICON.lock}Private repo</span>`}
+          <time class="date mono" datetime="${p.added}">${fmtDate(p.added)}</time>
         </div>
       </div>
     </article>`).join("");
@@ -665,15 +677,18 @@ function initExtras() {
 /* ---------- Featured carousel ---------- */
 const carousel = { go() {} };
 function initCarousel() {
-  const view = $("#f-view"), bar = $("#f-bar"), DUR = 7000;
-  let idx = 0, T = null, visible = false, hover = false, startAt = 0, timer = 0;
+  const view = $("#f-view"), bar = $("#f-bar"), win = $("#featured .window"), DUR = 8000;
+  const recent = projects.filter((p) => !PICKS.includes(p.id)).sort((a, b) => b.added.localeCompare(a.added)).slice(0, 2);
+  const list = [...recent.map((p) => ({ p, tag: "New" })), ...PICKS.map((id) => ({ p: projects.find((x) => x.id === id), tag: "My pick" }))];
+  let idx = 0, T = null, visible = false, onDemo = false, elapsed = 0, last = 0;
   const pad = (n) => String(n).padStart(2, "0");
   function show(i) {
-    idx = (i + projects.length) % projects.length;
-    const p = projects[idx];
+    idx = (i + list.length) % list.length; elapsed = 0;
+    const { p, tag } = list[idx];
     if (T) T.clear();
-    $("#f-idx").textContent = `${pad(idx + 1)} / ${pad(projects.length)}`;
-    $("#f-copy").innerHTML = `<h3 id="f-name">${esc(p.name)}</h3><span class="mono" style="color:var(--muted)">${esc(p.stack)}</span><p id="f-desc">${esc(p.desc)}</p>
+    $("#f-idx").textContent = `${pad(idx + 1)} / ${pad(list.length)}`;
+    $("#f-copy").innerHTML = `<span class="f-tag ${tag === "New" ? "new" : ""}">${tag}</span><h3 id="f-name">${esc(p.name)}</h3>
+      <span class="mono" style="color:var(--muted)">${esc(p.stack)} · Added <time datetime="${p.added}">${fmtDate(p.added)}</time></span><p id="f-desc">${esc(p.desc)}</p>
       <div class="feature-actions">${p.source ? `<a class="btn btn-primary" href="https://github.com/Brandonshev/${p.source}" target="_blank" rel="noopener">View source</a>` : ""}<a class="link" href="#p-${p.id}">See the card${ICON.out}</a>${p.source ? "" : `<span class="private mono" style="color:var(--muted);display:inline-flex;gap:6px;align-items:center">${ICON.lock}Private repo</span>`}</div>`;
     $("#f-path").textContent = `${p.id} / ${p.rec ? "recording" : "demo"}`;
     $("#f-kind").textContent = p.rec ? "Screen recording" : "Live demo";
@@ -685,24 +700,28 @@ function initCarousel() {
       const big = $(".big", view); big.style.transform = `scale(${view.clientWidth / 380})`;
       T = timers(); try { demos[p.id](big, T); } catch (e) { console.error(e); }
     }
-    restart();
+    bar.style.width = "0";
   }
-  function restart() {
-    clearTimeout(timer); bar.style.transition = "none"; bar.style.width = "0";
-    if (!visible || hover || reduced) return;
-    void bar.offsetWidth; bar.style.transition = `width ${DUR}ms linear`; bar.style.width = "100%";
-    timer = setTimeout(() => show(idx + 1), DUR);
+  // Progress only advances while the section is on screen and the cursor is off the demo.
+  // Hovering the demo pauses it where it is; moving off continues from the same spot.
+  function tick(t) {
+    const dt = last ? Math.min(t - last, 100) : 0; last = t;
+    if (visible && !onDemo && !reduced) {
+      elapsed += dt; bar.style.width = `${Math.min(elapsed / DUR, 1) * 100}%`;
+      if (elapsed >= DUR) show(idx + 1);
+    }
+    requestAnimationFrame(tick);
   }
+  win.addEventListener("mouseenter", () => { onDemo = true; win.classList.add("paused"); });
+  win.addEventListener("mouseleave", () => { onDemo = false; win.classList.remove("paused"); });
   $("#f-prev").onclick = () => show(idx - 1);
   $("#f-next").onclick = () => show(idx + 1);
-  const sec = $("#featured");
-  sec.addEventListener("mouseenter", () => { hover = true; restart(); });
-  sec.addEventListener("mouseleave", () => { hover = false; restart(); });
-  sec.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") show(idx - 1); if (e.key === "ArrowRight") show(idx + 1); });
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; restart(); }, { threshold: 0.3 }).observe(sec);
+  $("#featured").addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") show(idx - 1); if (e.key === "ArrowRight") show(idx + 1); });
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.3 }).observe($("#featured"));
   addEventListener("resize", () => { const big = $(".big", view); if (big) big.style.transform = `scale(${view.clientWidth / 380})`; });
   carousel.go = show;
   show(0);
+  requestAnimationFrame(tick);
 }
 
 renderGrid();
