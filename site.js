@@ -1,9 +1,9 @@
-// Showoff v2.9.0
-const VERSION = "2.9.0";
+// Showoff v3.0.0
+const VERSION = "3.0.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
-const CAT_NOTES = { mac: "Swift, mostly menu bar", ios: "SwiftUI, PencilKit and Expo", web: "Samsung, LG and browser", tools: "Bots, servers and agent skills" };
+const CAT_NOTES = { mac: "Swift, mostly menu bar", ios: "SwiftUI, PencilKit and Expo", web: "Samsung, LG and browser", tools: "Bots, plugins and agent skills" };
 const CATS = [
   ["all", "All"],
   ["mac", "Mac"],
@@ -36,10 +36,16 @@ const projects = [
   { id: "commons", added: "2026-11-07T02:39:49Z", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
   { id: "study", added: "2026-11-07T02:39:42Z", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
   { id: "leviathan", added: "2026-11-07T02:39:54Z", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
+  { id: "studyquiz", added: "2026-11-12T12:26:24Z", cat: "web", name: "Study Quiz", board: "STUDY QUIZ", stack: "Next.js · macOS", desc: "Turns your textbooks, syllabus and notes into quizzes, marks your answers, and maps which syllabus dot points you’ve covered, which are weak and which are missing. New questions target the weak spots first." },
+  { id: "roomreceipt", added: "2026-11-12T12:19:28Z", cat: "web", name: "RoomReceipt", board: "ROOMRECEIPT", stack: "Next.js · offline kit", desc: "A free two-minute check of how well each room in your home is documented for insurance, plus an offline inventory kit that runs in your browser with no account. Nothing leaves your device." },
+  { id: "bidbrake", added: "2026-11-12T12:19:19Z", cat: "web", name: "BidBrake", board: "BIDBRAKE", stack: "Next.js · SaaS beta", desc: "Scans a tender or RFP before a small agency commits to it, flagging mandatory gates, proof gaps, budget signals, timing risk and unanswered questions. Free public beta." },
   { id: "linkpocket", added: "2026-11-07T02:40:10Z", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
   { id: "postline", added: "2026-11-12T10:19:17Z", cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, an MCP server, a web console and a Mac menu bar app." },
   { id: "whopclipper", added: "2026-11-12T10:19:55Z", cat: "tools", name: "Whop Clipper", board: "WHOP CLIPPER", stack: "Python", desc: "Makes vertical clips for paid creator clipping campaigns and checks each one against that campaign’s rules. I approve every clip before it’s posted, and it tracks views and estimated earnings." },
   { id: "tradinglab", added: "2026-11-12T10:26:18Z", cat: "tools", name: "TradingLab", board: "TRADINGLAB", stack: "Python", desc: "Paper-trading bots for crypto and US stocks that run in the background on my Mac and never touch real money. Only the strategies that beat buy-and-hold in a five-year history test made the cut." },
+  { id: "tutor", added: "2026-11-12T12:23:07Z", cat: "tools", name: "Adaptive Exam Tutor", board: "EXAM TUTOR", stack: "Agent skill · /tutor", desc: "An AI skill that tutors you for one exam from your own course files. It teaches in short numbered groups, tests you until you hit about 95%, then runs exam-style practice. One installer adds it to Claude Code, Codex, Gemini and more." },
+  { id: "bizplugins", added: "2026-11-12T12:19:37Z", cat: "tools", name: "Business Plugins", board: "BIZ PLUGINS", stack: "Python · MCP", desc: "Three local MCP plugins for small businesses. ClientReport compares campaign metrics month to month, QuoteKit builds quotes with discount and GST, and MarginLens finds products losing money." },
+  { id: "serieskit", added: "2026-11-12T12:01:46Z", cat: "tools", name: "Serieskit", board: "SERIESKIT", stack: "Python · Claude Code", desc: "Turns a one-line idea into a vote-driven animated series for Shorts, Reels and TikTok. Claude writes, voices, draws and renders each episode in code, then writes the next one from the audience vote." },
   { id: "eyemouse", added: "2026-11-07T02:39:33Z", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
   { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Two reusable workflows for Claude. One turns NSW syllabuses into study notes, the other sorts saved videos into Notion." },
   { id: "streamclips", added: "2026-10-04T16:43:52Z", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
@@ -381,6 +387,99 @@ const demos = {
       T.after(1500, () => { done.classList.remove("press"); jobs[k].classList.remove("active"); jobs[k].classList.add("done"); k++; $("#su-progress", s).textContent = `${k} of 6 completed`; });
     };
     step(); T.every(2100, step);
+  },
+
+  studyquiz(s, T) {
+    const map = "cccwcmcwmcccwcmmccwc";
+    s.innerHTML = `<div class="d-sq"><div class="sq-map"><span class="mono sq-label">Coverage · Maths Adv</span><div class="sq-dots">${[...map].map((c) => `<i class="${c}"></i>`).join("")}</div>
+      <div class="sq-key mono"><span><i class="c"></i>Covered</span><span><i class="w"></i>Weak</span><span><i class="m"></i>Missing</span></div></div>
+      <div class="sq-card"><span class="mono sq-label">Weak area · Trig ratios</span><b>Which ratio gives tan θ?</b>
+      ${["sin θ ÷ cos θ", "cos θ ÷ sin θ", "1 ÷ sin θ"].map((o, i) => `<div class="sq-opt" data-i="${i}"><span class="mono">${"ABC"[i]}</span>${o}</div>`).join("")}<span class="sq-fb mono" id="sq-fb"></span></div></div>`;
+    const dots = [...s.querySelectorAll(".sq-dots i")], opts = [...s.querySelectorAll(".sq-opt")], fb = $("#sq-fb", s);
+    const weak = dots.findIndex((d) => d.className === "w");
+    const run = () => {
+      opts.forEach((o) => (o.className = "sq-opt")); fb.textContent = ""; dots[weak].className = "w hot";
+      T.after(1200, () => opts[0].classList.add("pick"));
+      T.after(1700, () => { opts[0].classList.add("right"); fb.textContent = "Correct · weak area improving"; });
+      T.after(2400, () => (dots[weak].className = "c"));
+    };
+    run(); T.every(5200, run);
+  },
+
+  roomreceipt(s, T) {
+    const rooms = ["Kitchen", "Living room", "Bedroom", "Office", "Garage"];
+    const levels = ["Nothing yet", "Room photos", "Items + evidence"];
+    const plan = [2, 1, 2, 2, 0];
+    s.innerHTML = `<div class="d-room"><div class="rr-rooms">${rooms.map((r) => `<div class="rr-row"><span>${r}</span><span class="rr-pill mono">${levels[0]}</span></div>`).join("")}</div>
+      <div class="rr-score"><span class="mono">Inventory readiness</span><b id="rr-pct">0%</b><span class="rr-track"><i id="rr-bar"></i></span><span class="rr-next" id="rr-next">Start with your most valuable room</span></div></div>`;
+    const pills = [...s.querySelectorAll(".rr-pill")], pct = $("#rr-pct", s), bar = $("#rr-bar", s), next = $("#rr-next", s);
+    const score = (vals) => Math.round((vals.reduce((a, b) => a + b, 0) / (rooms.length * 2)) * 100);
+    const run = () => {
+      const vals = rooms.map(() => 0);
+      pills.forEach((p) => { p.textContent = levels[0]; p.className = "rr-pill mono"; }); pct.textContent = "0%"; bar.style.width = "0"; next.textContent = "Start with your most valuable room";
+      plan.forEach((v, i) => T.after(500 + i * 650, () => {
+        vals[i] = v; pills[i].textContent = levels[v]; pills[i].className = `rr-pill mono l${v}`;
+        const sc = score(vals); pct.textContent = `${sc}%`; bar.style.width = `${sc}%`;
+      }));
+      T.after(500 + plan.length * 650 + 200, () => (next.textContent = "Next step: walk the garage with the shot list"));
+    };
+    run(); T.every(6400, run);
+  },
+
+  bidbrake(s, T) {
+    const flags = [["gate", "Mandatory gate", "ISO 27001 required"], ["gap", "Proof gap", "No government case study"], ["ok", "Budget signal", "A$40k–60k mentioned"], ["gap", "Timing risk", "Due in 9 days"]];
+    s.innerHTML = `<div class="d-bid"><div class="bb-doc"><span class="mono bb-label">RFP · Website rebuild.pdf</span>${[90, 70, 84, 60, 92, 76, 66, 88].map((w) => `<i style="width:${w}%"></i>`).join("")}<span class="bb-scan"></span></div>
+      <div class="bb-out">${flags.map(([k, t, d]) => `<div class="bb-flag ${k}"><b>${t}</b><span>${d}</span></div>`).join("")}<div class="bb-verdict mono" id="bb-v"></div></div></div>`;
+    const el = $(".d-bid", s), fl = [...s.querySelectorAll(".bb-flag")], v = $("#bb-v", s);
+    const run = () => {
+      el.classList.remove("scanning"); fl.forEach((f) => f.classList.remove("on")); v.textContent = ""; v.className = "bb-verdict mono";
+      T.after(100, () => el.classList.add("scanning"));
+      fl.forEach((f, i) => T.after(700 + i * 500, () => f.classList.add("on")));
+      T.after(700 + fl.length * 500 + 200, () => { v.textContent = "Bid only if you can close the gate"; v.classList.add("on"); });
+    };
+    run(); T.every(6000, run);
+  },
+
+  tutor(s, T) {
+    s.innerHTML = `<div class="term" id="term"></div><div class="tu-meter"><span class="mono">Group 1 accuracy</span><span class="tu-track"><i id="tu-fill"></i><span class="tu-goal"></span></span><span class="mono" id="tu-pct">0%</span></div>`;
+    const term = $("#term", s), fill = $("#tu-fill", s), pct = $("#tu-pct", s);
+    const lines = [[0, '<span class="p">›</span> <span class="w">/tutor Biology 28 Nov medium</span>'], [700, "Read 6 files · exam covers 4 modules"], [1300, "Split into 9 groups · starting group 1: Cell structure"], [4300, '<span class="ok">Mastered</span> · type <span class="w">ready</span> for group 2']];
+    const run = () => {
+      term.innerHTML = ""; fill.style.width = "0"; pct.textContent = "0%";
+      lines.forEach(([ms, h]) => T.after(ms, () => term.insertAdjacentHTML("beforeend", `<div style="animation:rise 260ms var(--ease) both">${h}</div>`)));
+      [40, 60, 80, 96].forEach((v, i) => T.after(2000 + i * 550, () => { fill.style.width = `${v}%`; pct.textContent = `${v}%`; fill.classList.toggle("done", v >= 95); }));
+    };
+    run(); T.every(7000, run);
+  },
+
+  bizplugins(s, T) {
+    s.innerHTML = `<div class="d-biz"><div class="bz-tabs">${["ClientReport", "QuoteKit", "MarginLens"].map((t, i) => `<span data-t="${i}">${t}</span>`).join("")}</div><div class="bz-body" id="bz"></div></div>`;
+    const body = $("#bz", s), tabs = [...s.querySelectorAll(".bz-tabs span")];
+    const panes = [
+      `<div class="bz-kpis">${[["Clicks", "4,812", "+18%"], ["Leads", "126", "+9%"], ["Cost per lead", "A$23.40", "−6%"]].map(([k, v, d]) => `<div><span class="mono">${k}</span><b>${v}</b><em class="up">${d} vs Oct</em></div>`).join("")}</div>`,
+      `<div class="bz-quote">${[["Logo design", "A$650.00"], ["Brand guide", "A$420.00"], ["Discount 10%", "−A$107.00"], ["GST 10%", "A$96.30"]].map(([k, v]) => `<div><span>${k}</span><span class="mono">${v}</span></div>`).join("")}<div class="bz-total"><span>Total</span><span class="mono">A$1,059.30</span></div></div>`,
+      `<div class="bz-margin">${[["Candles", 42], ["Soap bars", 31], ["Gift boxes", -8], ["Diffusers", 12]].map(([k, v]) => `<div class="${v < 0 ? "loss" : v < 20 ? "low" : ""}"><span>${k}</span><span class="bz-track"><i style="width:${Math.abs(v) * 2}%"></i></span><span class="mono">${v}%</span></div>`).join("")}</div>`,
+    ];
+    let k = 0;
+    const show = () => { tabs.forEach((t, i) => t.classList.toggle("on", i === k)); body.innerHTML = panes[k]; k = (k + 1) % 3; };
+    show(); T.every(2600, show);
+  },
+
+  serieskit(s, T) {
+    const steps = ["Bible", "Script", "Voices", "Draw", "Render"];
+    s.innerHTML = `<div class="d-series"><div class="sk-frame"><div class="sk-scene"><span class="sk-moon"></span><span class="sk-hill"></span><span class="sk-lamp"></span><span class="sk-sub" id="sk-sub"></span></div><span class="mono">Lantern · ep 1</span></div>
+      <div class="sk-side"><div class="sk-steps">${steps.map((t) => `<span>${t}</span>`).join("")}</div>
+      <div class="sk-vote"><span class="mono">Episode 2 · audience vote</span>${[["Follow the light", 64], ["Go back home", 36]].map(([t, v]) => `<div class="sk-opt"><span>${t}</span><span class="sk-track"><i data-v="${v}"></i></span><span class="mono">${v}%</span></div>`).join("")}</div></div></div>`;
+    const st = [...s.querySelectorAll(".sk-steps span")], bars = [...s.querySelectorAll(".sk-track i")], sub = $("#sk-sub", s), el = $(".d-series", s);
+    const lines = ["Something is out there", "and it knows my name"];
+    const run = () => {
+      st.forEach((x) => (x.className = "")); bars.forEach((b) => (b.style.width = "0")); sub.textContent = ""; el.classList.remove("lit");
+      st.forEach((x, i) => T.after(300 + i * 450, () => x.classList.add("on")));
+      T.after(2700, () => el.classList.add("lit"));
+      lines.forEach((l, i) => T.after(2700 + i * 900, () => (sub.textContent = l)));
+      T.after(4600, () => bars.forEach((b) => (b.style.width = `${b.dataset.v}%`)));
+    };
+    run(); T.every(7200, run);
   },
 
   orbit(s, T) {
