@@ -1,4 +1,4 @@
-/* Showoff v2.7.0 */
+/* Showoff v2.9.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -626,3 +626,41 @@ dialog video { width: 100%; background: #000; aspect-ratio: 16 / 10; }
 .d-clipper .wc-ok { background: var(--text); color: #1a1815; border-color: transparent; }
 .d-clipper .wc-status { font-size: 11px; color: var(--muted); }
 .d-clipper .wc-status.ok { color: var(--pos); }
+
+/* TradingLab */
+.d-trade { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 14px 16px; }
+.d-trade .tl-label { display: block; font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.d-trade .tl-row { display: grid; grid-template-columns: 30px auto; grid-template-rows: auto auto; column-gap: 8px; margin-bottom: 10px; font-size: 12px; }
+.d-trade .tl-row b { font-weight: 500; grid-row: span 2; align-self: center; }
+.d-trade .tl-dots { display: flex; gap: 4px; }
+.d-trade .tl-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--raised); transition: background-color 200ms var(--ease); }
+.d-trade .tl-dots i.on { background: var(--text-2); }
+.d-trade .tl-row.hold .tl-dots i.on { background: var(--pos); }
+.d-trade .tl-state { font-size: 10px; line-height: 16px; color: var(--muted); }
+.d-trade .tl-row.hold .tl-state { color: var(--pos); }
+.d-trade .tl-bar { display: grid; grid-template-columns: 1fr; gap: 3px; margin-bottom: 8px; font-size: 11px; color: var(--text-2); position: relative; }
+.d-trade .tl-bar .mono { position: absolute; right: 0; top: 0; font-size: 10px; font-variant-numeric: tabular-nums; }
+.d-trade .tl-track { height: 6px; border-radius: 3px; background: var(--raised); overflow: hidden; }
+.d-trade .tl-track i { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--text-2); transition: width 800ms var(--ease); }
+.d-trade .tl-bar.lead { color: var(--text); }
+.d-trade .tl-bar.lead i { background: var(--amber); }
+.d-trade .tl-note { font-size: 10px; color: var(--muted); }
+
+/* Signup Studio */
+.d-signup { position: absolute; inset: 0; display: grid; grid-template-columns: 128px 1fr; }
+.d-signup .su-list { border-right: 1px solid var(--line); padding: 10px 8px; }
+.d-signup .su-label { display: block; font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+.d-signup .su-job { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 6px; border-radius: 6px; font-size: 11px; color: var(--text-2); }
+.d-signup .su-job i { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--line-strong); flex: none; transition: background-color 200ms var(--ease); }
+.d-signup .su-job.active { background: var(--raised); color: var(--text); }
+.d-signup .su-job.active i { background: var(--amber); border-color: transparent; }
+.d-signup .su-job.done i { background: var(--pos); border-color: transparent; }
+.d-signup .su-detail { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.d-signup .su-detail > b { font: 500 15px/1.2 var(--display); }
+.d-signup .su-sub { font-size: 10px; color: var(--muted); margin-top: -4px; }
+.d-signup .su-field { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 11px; line-height: 14px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.d-signup .su-field em { font-style: normal; display: block; color: var(--muted); font-size: 9px; }
+.d-signup .su-field .mini-btn { height: 20px; padding: 0 8px; min-width: 52px; justify-content: center; }
+.d-signup .su-actions { display: flex; gap: 6px; margin-top: auto; }
+.d-signup .su-done { background: var(--text); color: #1a1815; border-color: transparent; transition: transform 120ms var(--ease); }
+.d-signup .su-done.press { transform: scale(0.94); }

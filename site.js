@@ -1,5 +1,5 @@
-// Showoff v2.8.0
-const VERSION = "2.8.0";
+// Showoff v2.9.0
+const VERSION = "2.9.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -26,6 +26,7 @@ const projects = [
   { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
   { id: "switchboard", added: "2026-11-07T02:37:50Z", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
   { id: "promptshelf", added: "2026-11-07T02:55:38Z", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
+  { id: "signupstudio", added: "2026-11-12T10:22:30Z", cat: "mac", name: "Signup Studio", board: "SIGNUP STUDIO", stack: "SwiftUI · macOS", desc: "Plans and tracks setting up profiles for my theme pages across TikTok, Instagram, YouTube and more. It opens each signup page and has copy buttons for every detail, while the signing up itself happens in the browser." },
   { id: "replybell", added: "2026-11-08T03:06:29Z", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
@@ -38,6 +39,7 @@ const projects = [
   { id: "linkpocket", added: "2026-11-07T02:40:10Z", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
   { id: "postline", added: "2026-11-12T10:19:17Z", cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, an MCP server, a web console and a Mac menu bar app." },
   { id: "whopclipper", added: "2026-11-12T10:19:55Z", cat: "tools", name: "Whop Clipper", board: "WHOP CLIPPER", stack: "Python", desc: "Makes vertical clips for paid creator clipping campaigns and checks each one against that campaign’s rules. I approve every clip before it’s posted, and it tracks views and estimated earnings." },
+  { id: "tradinglab", added: "2026-11-12T10:26:18Z", cat: "tools", name: "TradingLab", board: "TRADINGLAB", stack: "Python", desc: "Paper-trading bots for crypto and US stocks that run in the background on my Mac and never touch real money. Only the strategies that beat buy-and-hold in a five-year history test made the cut." },
   { id: "eyemouse", added: "2026-11-07T02:39:33Z", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
   { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Two reusable workflows for Claude. One turns NSW syllabuses into study notes, the other sorts saved videos into Notion." },
   { id: "streamclips", added: "2026-10-04T16:43:52Z", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
@@ -337,6 +339,48 @@ const demos = {
       T.after(4200, () => (st.textContent = "12,480 views · est. A$27.10"));
     };
     run(); T.every(6600, run);
+  },
+
+  tradinglab(s, T) {
+    const coins = [["BTC", [1,1,1,0,1,1,0]], ["ETH", [1,0,1,1,1,0,1]], ["SOL", [0,1,0,0,1,0,0]]];
+    const bars = [["Vote bot + BTC filter", 145, true], ["Plain vote bot", 98], ["Just holding", 14]];
+    s.innerHTML = `<div class="d-trade"><div class="tl-votes"><span class="mono tl-label">Crypto vote bot · 7 rules</span>
+      ${coins.map(([c]) => `<div class="tl-row" data-c="${c}"><b>${c}</b><span class="tl-dots">${"<i></i>".repeat(7)}</span><span class="tl-state mono"></span></div>`).join("")}</div>
+      <div class="tl-test"><span class="mono tl-label">History test, 2021–2026</span>
+      ${bars.map(([n, v, lead]) => `<div class="tl-bar${lead ? " lead" : ""}"><span>${n}</span><span class="tl-track"><i data-v="${v}"></i></span><span class="mono">+${v}%</span></div>`).join("")}
+      <span class="mono tl-note">Paper money only</span></div></div>`;
+    const rows = [...s.querySelectorAll(".tl-row")], fills = [...s.querySelectorAll(".tl-bar i")];
+    const run = () => {
+      rows.forEach((r) => { r.querySelectorAll("i").forEach((d) => d.classList.remove("on")); $(".tl-state", r).textContent = ""; r.className = "tl-row"; });
+      fills.forEach((f) => (f.style.width = "0"));
+      coins.forEach(([c, votes], ci) => votes.forEach((v, i) => T.after(300 + ci * 900 + i * 110, () => { if (v) rows[ci].querySelectorAll("i")[i].classList.add("on"); })));
+      coins.forEach(([c, votes], ci) => T.after(300 + ci * 900 + 850, () => {
+        const n = votes.reduce((a, b) => a + b, 0), hold = n >= 4;
+        rows[ci].classList.add(hold ? "hold" : "out"); $(".tl-state", rows[ci]).textContent = `${n}/7 · ${hold ? "holding" : "out"}`;
+      }));
+      T.after(3200, () => fills.forEach((f) => (f.style.width = `${(+f.dataset.v / 150) * 100}%`)));
+    };
+    run(); T.every(7000, run);
+  },
+
+  signupstudio(s, T) {
+    const plats = ["TikTok", "Instagram", "YouTube", "Facebook Pages", "Threads", "Pinterest"];
+    s.innerHTML = `<div class="d-signup"><div class="su-list"><span class="mono su-label">Batch 1</span>${plats.map((p) => `<div class="su-job"><i></i><span>${p}</span></div>`).join("")}</div>
+      <div class="su-detail"><b id="su-plat">TikTok</b><span class="mono su-sub" id="su-progress">0 of 6 completed</span>
+        ${[["Display name", "Daily Space Facts"], ["Username", "dailyspacefacts"], ["Bio", "One space fact a day"]].map(([k, v]) => `<div class="su-field"><span><em>${k}</em>${v}</span><button type="button" class="mini-btn" tabindex="-1">Copy</button></div>`).join("")}
+        <div class="su-actions"><button type="button" class="mini-btn" tabindex="-1">Open signup site</button><button type="button" class="mini-btn su-done" tabindex="-1">Mark completed</button></div></div></div>`;
+    const jobs = [...s.querySelectorAll(".su-job")], copies = [...s.querySelectorAll(".su-field .mini-btn")], done = $(".su-done", s);
+    let k = 0;
+    const step = () => {
+      if (k >= plats.length) { k = 0; jobs.forEach((j) => j.className = "su-job"); }
+      jobs.forEach((j, i) => j.classList.toggle("active", i === k));
+      $("#su-plat", s).textContent = plats[k]; $("#su-progress", s).textContent = `${k} of 6 completed`;
+      copies.forEach((c) => (c.textContent = "Copy"));
+      copies.forEach((c, i) => T.after(250 + i * 300, () => { c.textContent = "Copied"; T.after(500, () => (c.textContent = "Copy")); }));
+      T.after(1350, () => done.classList.add("press"));
+      T.after(1500, () => { done.classList.remove("press"); jobs[k].classList.remove("active"); jobs[k].classList.add("done"); k++; $("#su-progress", s).textContent = `${k} of 6 completed`; });
+    };
+    step(); T.every(2100, step);
   },
 
   orbit(s, T) {
