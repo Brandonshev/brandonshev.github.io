@@ -1,5 +1,5 @@
-// Showoff v2.7.0
-const VERSION = "2.7.0";
+// Showoff v2.8.0
+const VERSION = "2.8.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -48,7 +48,7 @@ const games = [
   { name: "One Cart, Four Drivers", img: "assets/roblox/cart.jpg", place: "100034442423754", tags: "Co-op · 1 to 4 players", desc: "Steer, push and balance one shopping cart across ramps and narrow roads as a team." },
   { name: "Verity Tycoon", img: "assets/roblox/tycoon.jpg", place: "99989610571422", tags: "Tycoon · fan game", desc: "Build a Helper Factory with droppers, pets and mystery buttons. Just don’t trust the Helpers." },
   { name: "Verity Obby", img: "assets/roblox/obby.jpg", place: "88163989898384", tags: "Obby · fan game", desc: "A Verity-themed obstacle course. Practise your jumps and compare runs with a friend." },
-  { soon: true },
+  { name: "My House Has Legs!", img: "assets/roblox/house.jpg", place: "138525941700537", tags: "Driving · up to 8 players", desc: "Upgrade your walking house by day, then climb into the rooftop seat and drive it around the meadow at night." },
 ];
 
 /* ---------- Helpers ---------- */
