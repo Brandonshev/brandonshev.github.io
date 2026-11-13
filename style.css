@@ -1,4 +1,4 @@
-/* Showoff v3.0.0 */
+/* Showoff v3.1.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -770,3 +770,36 @@ dialog video { width: 100%; background: #000; aspect-ratio: 16 / 10; }
 .d-series .sk-track { height: 6px; border-radius: 3px; background: var(--raised); overflow: hidden; }
 .d-series .sk-track i { display: block; height: 100%; width: 0; background: var(--text-2); border-radius: 3px; transition: width 700ms var(--ease); }
 .d-series .sk-opt:first-of-type .sk-track i { background: var(--amber); }
+
+/* Barback (menu bar folder) */
+.d-barback2 .bb2 { justify-content: space-between; }
+.d-barback2 .bb2-apple { font-weight: 600; color: var(--text); }
+.d-barback2 .bb2-right { display: flex; align-items: center; gap: 10px; }
+.d-barback2 .bb2-folder { display: flex; gap: 10px; overflow: hidden; max-width: 0; opacity: 0; transition: max-width 420ms var(--ease), opacity 260ms var(--ease); }
+.d-barback2.open .bb2-folder { max-width: 140px; opacity: 1; }
+.d-barback2 .bb2-toggle { width: 18px; height: 18px; border-radius: 4px; display: grid; place-items: center; font-size: 13px; color: var(--text); background: rgba(239, 233, 222, 0.14); }
+.d-barback2 .bb2-explain { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -30%); text-align: center; display: grid; gap: 6px; }
+.d-barback2 .bb2-explain b { font: 500 18px/1.2 var(--display); }
+.d-barback2 .bb2-explain .mono { font-size: 11px; color: var(--muted); }
+
+/* Ledge */
+.d-ledge { position: absolute; inset: 0; }
+.d-ledge .lg-notch { position: absolute; left: 50%; top: 0; width: 110px; height: 22px; transform: translateX(-50%); background: #000; border-radius: 0 0 12px 12px; overflow: hidden; transition: width 420ms var(--ease), height 420ms var(--ease), border-radius 420ms var(--ease); }
+.d-ledge.open .lg-notch { width: 250px; height: 190px; border-radius: 0 0 20px 20px; }
+.d-ledge .lg-panel { padding: 28px 14px 10px; opacity: 0; transition: opacity 200ms var(--ease); }
+.d-ledge.open .lg-panel { opacity: 1; transition-delay: 180ms; }
+.d-ledge .lg-next { border-radius: 10px; background: #1b1a18; padding: 8px 10px; margin-bottom: 6px; display: grid; gap: 2px; font-size: 11px; }
+.d-ledge .lg-next .mono { font-size: 9px; color: var(--amber-ink); }
+.d-ledge .lg-next b { font-weight: 500; font-size: 13px; }
+.d-ledge .lg-next span:last-child { color: var(--muted); }
+.d-ledge .lg-task { display: flex; align-items: center; gap: 8px; height: 22px; font-size: 11px; color: var(--text); }
+.d-ledge .lg-task i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--muted); flex: none; transition: background-color 200ms var(--ease); }
+.d-ledge .lg-task.p1 i { border-color: var(--neg); }
+.d-ledge .lg-task.p2 i { border-color: var(--amber); }
+.d-ledge .lg-task em { margin-left: auto; font-style: normal; font-size: 10px; color: var(--muted); }
+.d-ledge .lg-task.done i { background: var(--amber); }
+.d-ledge .lg-task.done span { color: var(--muted); text-decoration: line-through; }
+.d-ledge .lg-undo { font-size: 10px; color: var(--muted); opacity: 0; transition: opacity 200ms var(--ease); margin-top: 4px; }
+.d-ledge.ticked .lg-undo { opacity: 1; }
+.d-ledge .lg-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); color: var(--muted); font-size: 11px; transition: opacity 200ms var(--ease); }
+.d-ledge.open .lg-hint { opacity: 0; }

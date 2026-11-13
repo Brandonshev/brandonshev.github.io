@@ -1,5 +1,5 @@
-// Showoff v3.0.0
-const VERSION = "3.0.0";
+// Showoff v3.1.0
+const VERSION = "3.1.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -21,12 +21,13 @@ const projects = [
   { id: "orbit", added: "2026-11-07T12:42:06Z", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
   { id: "dot", added: "2026-11-07T12:42:00Z", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
   { id: "crate", added: "2026-11-07T02:37:42Z", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
-  { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar manager and notch shelf for organising, searching and reaching menu bar items." },
+  { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar folder. Every icon left of its ‹ button folds away, and one click opens them back out across the menu bar. No permissions needed, and the icons still hide with the menu bar in full-screen apps." },
   { id: "ebb", added: "2026-11-07T02:37:33Z", cat: "mac", name: "Ebb", board: "EBB", stack: "Swift · macOS", desc: "Set a charge limit for a plugged-in MacBook, hold a target charge, or charge to full on demand." },
   { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
   { id: "switchboard", added: "2026-11-07T02:37:50Z", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
   { id: "promptshelf", added: "2026-11-07T02:55:38Z", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
-  { id: "signupstudio", added: "2026-11-12T10:22:30Z", cat: "mac", name: "Signup Studio", board: "SIGNUP STUDIO", stack: "SwiftUI · macOS", desc: "Plans and tracks setting up profiles for my theme pages across TikTok, Instagram, YouTube and more. It opens each signup page and has copy buttons for every detail, while the signing up itself happens in the browser." },
+  { id: "signupstudio", added: "2026-11-12T10:22:30Z", cat: "mac", name: "Signup Studio", board: "SIGNUP STUDIO", stack: "SwiftUI · macOS", desc: "Plans and tracks setting up profiles for my theme pages across TikTok, Instagram, YouTube and more, with copy buttons for every detail. An experimental signup window fills in the fields it recognises, and I review and submit each form myself." },
+  { id: "ledge", added: "2026-11-13T12:57:57Z", cat: "mac", name: "Ledge", board: "LEDGE", stack: "SwiftUI · macOS", desc: "A to-do list that lives in the MacBook notch. Hover over it and a panel drops down with today’s Todoist tasks, plus an on-device AI pick for what to do next. Free, offline and private." },
   { id: "replybell", added: "2026-11-08T03:06:29Z", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
@@ -546,17 +547,42 @@ const demos = {
   },
 
   barback(s, T) {
-    const bar = ["cloud", "music", "clip", "timer", "bt", "wifi", "battery"];
-    s.innerHTML = `<div class="d-barback" style="position:absolute;inset:0">
-      <div class="menubar" style="justify-content:space-between"><span style="font-weight:600;color:var(--text)">Finder</span><span style="display:flex;gap:10px;align-items:center">${bar.map((n) => `<span class="mb-ico">${svg(n)}</span>`).join("")}<span class="mono" style="font-size:11px">12:30</span></span></div>
-      <div class="notch"></div>
-      <div class="shelf"><span class="search">${svg("search")}Search items</span>${["cloud", "music", "clip", "timer", "mic", "cam", "books", "bt"].map((n) => `<span>${svg(n)}</span>`).join("")}</div>
-      <span class="hint">Hover the notch</span></div>`;
-    const el = $(".d-barback", s); let over = false;
+    const hidden = ["cloud", "music", "clip", "timer", "mic"], shown = ["bt", "wifi", "battery"];
+    s.innerHTML = `<div class="d-barback2" style="position:absolute;inset:0">
+      <div class="menubar bb2"><span class="bb2-apple">Finder</span><span class="bb2-right"><span class="bb2-folder" id="bb2-f">${hidden.map((n) => `<span class="mb-ico">${svg(n)}</span>`).join("")}</span><button type="button" class="bb2-toggle mono" id="bb2-t" aria-label="Open the menu bar folder">‹</button>${shown.map((n) => `<span class="mb-ico">${svg(n)}</span>`).join("")}<span class="mono" style="font-size:11px">12:30</span></span></div>
+      <div class="bb2-explain"><b id="bb2-state">5 icons folded away</b><span class="mono" id="bb2-hint">Click ‹ to open the folder</span></div></div>`;
+    const el = $(".d-barback2", s), t = $("#bb2-t", s);
+    let open = false, userAt = 0;
+    const set = (v) => {
+      open = v; el.classList.toggle("open", open); t.textContent = open ? "›" : "‹";
+      $("#bb2-state", s).textContent = open ? "Folder open" : "5 icons folded away";
+      $("#bb2-hint", s).textContent = open ? "Click › to fold them away" : "Click ‹ to open the folder";
+    };
+    t.onclick = () => { set(!open); userAt = Date.now(); };
+    set(false);
+    T.every(2400, () => { if (Date.now() - userAt > 5000) set(!open); });
+  },
+
+  ledge(s, T) {
+    const tasks = [["Essay draft", "4 pm", "p1"], ["Maths homework", "Overdue", "p2"], ["Email Ms Chen", "Today", "p3"]];
+    s.innerHTML = `<div class="d-ledge"><div class="lg-notch"><div class="lg-panel">
+      <div class="lg-next"><span class="mono">Up next · on-device AI</span><b id="lg-n">Maths homework</b><span id="lg-r">Overdue and only 25 min</span></div>
+      ${tasks.map(([n, d, p]) => `<div class="lg-task ${p}"><i></i><span>${n}</span><em class="mono">${d}</em></div>`).join("")}
+      <div class="lg-undo mono">Ticked off · Undo</div></div></div><span class="lg-hint mono">Hover the notch</span></div>`;
+    const el = $(".d-ledge", s), rows = [...s.querySelectorAll(".lg-task")];
+    let over = false;
     el.addEventListener("mouseenter", () => { over = true; el.classList.add("open"); });
     el.addEventListener("mouseleave", () => { over = false; });
-    T.after(600, () => el.classList.add("open"));
-    T.every(2800, () => { if (!over) el.classList.toggle("open"); });
+    const run = () => {
+      if (over) return;
+      el.classList.remove("open", "ticked"); rows.forEach((r) => r.classList.remove("done"));
+      $("#lg-n", s).textContent = "Maths homework"; $("#lg-r", s).textContent = "Overdue and only 25 min";
+      T.after(700, () => el.classList.add("open"));
+      T.after(2300, () => { rows[1].classList.add("done"); el.classList.add("ticked"); });
+      T.after(2900, () => { $("#lg-n", s).textContent = "Essay draft"; $("#lg-r", s).textContent = "Due at 4 pm · about 50 min"; });
+      T.after(4200, () => { if (!over) el.classList.remove("open", "ticked"); });
+    };
+    run(); T.every(5200, run);
   },
 
   ebb(s, T) {
