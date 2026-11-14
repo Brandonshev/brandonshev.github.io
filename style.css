@@ -1,4 +1,4 @@
-/* Showoff v3.1.0 */
+/* Showoff v3.2.0 */
 :root {
   color-scheme: dark;
   --bg-deep: #12110f;
@@ -803,3 +803,39 @@ dialog video { width: 100%; background: #000; aspect-ratio: 16 / 10; }
 .d-ledge.ticked .lg-undo { opacity: 1; }
 .d-ledge .lg-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); color: var(--muted); font-size: 11px; transition: opacity 200ms var(--ease); }
 .d-ledge.open .lg-hint { opacity: 0; }
+
+/* Skylar's Reef */
+.d-reef { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #0f4c63 0%, #0b3348 60%, #082333 100%); }
+.d-reef .rf-sand { position: absolute; left: -10%; right: -10%; bottom: -26px; height: 52px; border-radius: 50%; background: #c9b48a; opacity: 0.85; }
+.d-reef .rf-kelp { position: absolute; bottom: 10px; width: 6px; border-radius: 3px; background: #2f8f62; transform-origin: bottom; animation: sway 4s ease-in-out infinite alternate; }
+.d-reef .k1 { left: 8%; height: 90px; } .d-reef .k2 { left: 12%; height: 64px; animation-delay: -1.5s; } .d-reef .k3 { right: 10%; height: 110px; animation-delay: -0.8s; }
+@keyframes sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.d-reef .rf-crab { position: absolute; left: 62%; bottom: 14px; width: 18px; height: 10px; border-radius: 9px 9px 4px 4px; background: #e2573a; box-shadow: -7px -3px 0 -2px #e2573a, 7px -3px 0 -2px #e2573a; }
+.d-reef .rf-fish { --d: 1; position: absolute; width: 46px; height: 26px; transform: translate(-50%, -50%) scaleX(var(--d)); transition: left 1800ms var(--ease), top 1800ms var(--ease); z-index: 2; }
+.d-reef .rf-body { position: absolute; right: 0; top: 0; width: 34px; height: 26px; border-radius: 50% 60% 60% 50%; background: radial-gradient(circle at 65% 35%, #c9f7e4, #7fe0bd 55%, #4fb894); }
+.d-reef .rf-eye { position: absolute; right: 7px; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #0b1d26; box-shadow: 1px -1px 0 1px #fff inset; }
+.d-reef .rf-tail { position: absolute; left: 0; top: 4px; width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-right: 14px solid #5fcaa6; animation: wag 600ms ease-in-out infinite alternate; transform-origin: right center; }
+@keyframes wag { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+.d-reef .rf-bubbles i { position: absolute; bottom: -10px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.4); animation: bubble 5s linear infinite; }
+@keyframes bubble { to { transform: translateY(-240px); opacity: 0; } }
+.d-reef .rf-thought { position: absolute; right: 12px; top: 12px; width: 178px; background: rgba(8, 20, 28, 0.82); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 8px 10px; display: grid; gap: 3px; z-index: 3; }
+.d-reef .rf-thought .mono { font-size: 10px; color: #7fe0bd; }
+.d-reef .rf-thought b { font-weight: 500; font-size: 12px; line-height: 16px; color: #eaf6f2; }
+.d-reef .rf-live { position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #cfe7ee; z-index: 3; }
+.d-reef .rf-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--neg); }
+
+/* HSC Response Engine */
+.d-resp { position: absolute; inset: 0; padding: 12px 14px; background: #f7f4ee; color: #1f1b16; display: flex; flex-direction: column; gap: 8px; }
+.d-resp .re-q .mono { font-size: 10px; color: #7b7266; display: block; }
+.d-resp .re-q b { font: 500 14px/1.3 "Newsreader", Georgia, serif; }
+.d-resp .re-formula { display: flex; gap: 4px; flex-wrap: wrap; }
+.d-resp .re-chip { display: inline-flex; gap: 4px; align-items: center; height: 20px; padding: 0 6px; border-radius: 5px; font-size: 10px; color: #7b7266; border: 1px dashed rgba(31, 27, 22, 0.25); transition: background-color 250ms var(--ease), color 250ms var(--ease), border-color 250ms var(--ease); }
+.d-resp .re-chip b { font: 600 10px var(--mono); }
+.d-resp .re-chip.on { border-color: transparent; color: #1f1b16; }
+.d-resp .cT.on, .d-resp .re-seg.cT { background: #cfe0f7; }
+.d-resp .cP.on, .d-resp .re-seg.cP { background: #f5d58a; }
+.d-resp .cX.on, .d-resp .re-seg.cX { background: #c9ead2; }
+.d-resp .cE.on, .d-resp .re-seg.cE { background: #f4c7c0; }
+.d-resp .cL.on, .d-resp .re-seg.cL { background: #e0d3f2; }
+.d-resp .re-answer { font: 400 13px/1.55 "Newsreader", Georgia, serif; }
+.d-resp .re-seg { border-radius: 3px; padding: 1px 2px; animation: fade 300ms var(--ease) both; -webkit-box-decoration-break: clone; box-decoration-break: clone; }

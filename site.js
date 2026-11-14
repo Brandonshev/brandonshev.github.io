@@ -1,5 +1,5 @@
-// Showoff v3.1.0
-const VERSION = "3.1.0";
+// Showoff v3.2.0
+const VERSION = "3.2.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -13,7 +13,7 @@ const CATS = [
 ];
 
 // Featured carousel: the two newest projects (by `added`) plus these fixed picks
-const PICKS = ["orbit", "scout"];
+const PICKS = ["orbit", "skylar"];
 
 const projects = [
   { id: "scout", added: "2026-10-04T15:08:42Z", cat: "tools", name: "Scout", board: "SCOUT", stack: "Python", desc: "A paper-trading bot that scans the market, keeps to its risk limits and explains every simulated trade in plain English.", source: "scout", rec: { src: "assets/scout.mp4", poster: "assets/scout.jpg", cap: "Market mood, simulated positions and trade history in the real dashboard, using synthetic test data." } },
@@ -37,6 +37,8 @@ const projects = [
   { id: "commons", added: "2026-11-07T02:39:49Z", cat: "ios", name: "Commons", board: "COMMONS", stack: "TypeScript · Expo", desc: "A civic-services wallet prototype with invented data, exploring how to store, show and verify credentials." },
   { id: "study", added: "2026-11-07T02:39:42Z", cat: "web", name: "Study Desk", board: "STUDY DESK", stack: "JavaScript", desc: "HSC study tools for calculus, economics and business, with a visual equation editor and worked solutions." },
   { id: "leviathan", added: "2026-11-07T02:39:54Z", cat: "web", name: "Leviathan Marketplace", board: "LEVIATHAN", stack: "TypeScript · React", desc: "A Sydney aquarium fish marketplace preview with a moderated catalogue, a wanted board and seller enquiries." },
+  { id: "skylar", added: "2026-11-14T12:02:41Z", cat: "web", name: "Skylar’s Reef", board: "SKYLAR", stack: "Node.js · three.js · Raspberry Pi", desc: "Skylar is one shared AI fish living in a 3D tank anyone can visit. Her mind runs 24/7 on a Raspberry Pi: she plans a new project every day, searches the web, builds things in her reef and writes a journal each night. Inspired by Pino." },
+  { id: "responseengine", added: "2026-11-14T12:19:26Z", cat: "web", name: "HSC Response Engine", board: "RESPONSE ENG", stack: "HTML · macOS", desc: "Sister app to HSC Essay Engine for Business Studies, Economics and Geography short answers and 10-markers. Every NESA key word becomes a formula, and every part of an answer gets its own colour." },
   { id: "studyquiz", added: "2026-11-12T12:26:24Z", cat: "web", name: "Study Quiz", board: "STUDY QUIZ", stack: "Next.js · macOS", desc: "Turns your textbooks, syllabus and notes into quizzes, marks your answers, and maps which syllabus dot points you’ve covered, which are weak and which are missing. New questions target the weak spots first." },
   { id: "roomreceipt", added: "2026-11-12T12:19:28Z", cat: "web", name: "RoomReceipt", board: "ROOMRECEIPT", stack: "Next.js · offline kit", desc: "A free two-minute check of how well each room in your home is documented for insurance, plus an offline inventory kit that runs in your browser with no account. Nothing leaves your device." },
   { id: "bidbrake", added: "2026-11-12T12:19:19Z", cat: "web", name: "BidBrake", board: "BIDBRAKE", stack: "Next.js · SaaS beta", desc: "Scans a tender or RFP before a small agency commits to it, flagging mandatory gates, proof gaps, budget signals, timing risk and unanswered questions. Free public beta." },
@@ -48,7 +50,7 @@ const projects = [
   { id: "bizplugins", added: "2026-11-12T12:19:37Z", cat: "tools", name: "Business Plugins", board: "BIZ PLUGINS", stack: "Python · MCP", desc: "Three local MCP plugins for small businesses. ClientReport compares campaign metrics month to month, QuoteKit builds quotes with discount and GST, and MarginLens finds products losing money." },
   { id: "serieskit", added: "2026-11-12T12:01:46Z", cat: "tools", name: "Serieskit", board: "SERIESKIT", stack: "Python · Claude Code", desc: "Turns a one-line idea into a vote-driven animated series for Shorts, Reels and TikTok. Claude writes, voices, draws and renders each episode in code, then writes the next one from the audience vote." },
   { id: "eyemouse", added: "2026-11-07T02:39:33Z", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
-  { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Two reusable workflows for Claude. One turns NSW syllabuses into study notes, the other sorts saved videos into Notion." },
+  { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Three skills I’ve made for Claude. NESA Study Notes turns a syllabus into study notes, Saves to Notion sorts saved videos into Notion, and Watch Video lets an AI watch a video link through its caption, transcript and frames." },
   { id: "streamclips", added: "2026-10-04T16:43:52Z", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
 ];
 
@@ -483,6 +485,37 @@ const demos = {
     run(); T.every(7200, run);
   },
 
+  skylar(s, T) {
+    const thoughts = [["Today’s project", "Build a kelp library, shelf by shelf"], ["Searching the web", "how do octopuses change colour"], ["Building", "Library shelf 2 of 4 · Crab Ponce is helping"], ["Journal", "Painted the reading nook coral pink"]];
+    const r = rng(5); let bubbles = "";
+    for (let i = 0; i < 9; i++) bubbles += `<i style="left:${8 + r() * 84}%;animation-delay:${(r() * 4).toFixed(2)}s;width:${3 + r() * 4}px;height:${3 + r() * 4}px"></i>`;
+    s.innerHTML = `<div class="d-reef"><div class="rf-bubbles">${bubbles}</div><span class="rf-sand"></span><span class="rf-kelp k1"></span><span class="rf-kelp k2"></span><span class="rf-kelp k3"></span>
+      <span class="rf-crab"></span><div class="rf-fish" id="rf-fish"><span class="rf-tail"></span><span class="rf-body"><span class="rf-eye"></span></span></div>
+      <div class="rf-thought"><span class="mono" id="rf-k"></span><b id="rf-t"></b></div><span class="rf-live mono"><i></i>Live · 1 shared fish</span></div>`;
+    const fish = $("#rf-fish", s), k = $("#rf-k", s), t = $("#rf-t", s);
+    let n = 0, x = 30, y = 55, dir = 1;
+    const say = () => { const [a, b] = thoughts[n++ % thoughts.length]; k.textContent = a; t.textContent = b; };
+    const swim = () => {
+      const nx = 12 + Math.random() * 60, ny = 40 + Math.random() * 30;
+      dir = nx > x ? 1 : -1; x = nx; y = ny;
+      fish.style.left = `${x}%`; fish.style.top = `${y}%`; fish.style.setProperty("--d", dir);
+    };
+    say(); swim(); T.every(2600, say); T.every(1900, swim);
+  },
+
+  responseengine(s, T) {
+    const parts = [["T", "Term", "Inflation is a sustained rise in the general price level."], ["P", "Point", "Rising inflation erodes purchasing power."], ["X", "Explain", "As prices rise faster than wages, households buy less,"], ["E", "Evidence", "e.g. CPI rose 7.8% in Australia in 2022,"], ["L", "Link", "so real consumption falls and growth slows."]];
+    s.innerHTML = `<div class="d-resp"><div class="re-q"><span class="mono">Economics · 4 marks</span><b>Explain how inflation affects consumers.</b></div>
+      <div class="re-formula">${parts.map(([c, n]) => `<span class="re-chip c${c}"><b>${c}</b>${n}</span>`).join("")}</div>
+      <div class="re-answer" id="re-a"></div></div>`;
+    const ans = $("#re-a", s), chips = [...s.querySelectorAll(".re-chip")];
+    const run = () => {
+      ans.innerHTML = ""; chips.forEach((c) => c.classList.remove("on"));
+      parts.forEach(([c, , txt], i) => T.after(400 + i * 750, () => { chips[i].classList.add("on"); ans.insertAdjacentHTML("beforeend", `<span class="re-seg c${c}">${txt}</span> `); }));
+    };
+    run(); T.every(6400, run);
+  },
+
   orbit(s, T) {
     const apps = [["Netflix", "#e50914", 22], ["Disney+", "#3e7bfa", 16], ["YouTube", "#ff4a4a", 18], ["Stremio", "#8d6bf0", 15], ["Stan", "#2c8cf0", 14], ["Settings", "#c9a35b", 12]];
     s.innerHTML = `<div class="d-orbit"><div class="stars"></div><div class="ring"></div><div class="sun"></div>
@@ -787,9 +820,11 @@ const demos = {
       [2900, '<span class="p">›</span> <span class="w">/syllabus-notes maths-advanced</span>'],
       [3600, "Reading the NSW syllabus"],
       [4300, '<span class="ok">Done</span> · notes for 4 topics'],
+      [5200, '<span class="p">›</span> <span class="w">watchvid instagram.com/reel/…</span>'],
+      [5900, '<span class="ok">Watched</span> · caption, transcript and 12 frames'],
     ];
     const run = () => { term.innerHTML = ""; lines.forEach(([ms, html]) => T.after(ms, () => term.insertAdjacentHTML("beforeend", `<div style="animation:rise 260ms var(--ease) both">${html}</div>`))); };
-    run(); T.every(7200, run);
+    run(); T.every(8600, run);
   },
 
   streamclips(s, T) {
