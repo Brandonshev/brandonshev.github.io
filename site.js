@@ -1,5 +1,5 @@
-// Showoff v3.7.0
-const VERSION = "3.7.0";
+// Showoff v3.8.0
+const VERSION = "3.8.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -23,13 +23,13 @@ const projects = [
   { id: "orbit", added: "2026-11-07T12:42:06Z", cat: "web", name: "Orbit TV Launcher", board: "ORBIT", stack: "HTML · Tizen", desc: "A Samsung TV launcher where the remote moves between planets and each planet opens an app.", rec: { src: "assets/orbit.mp4", poster: "assets/orbit.jpg", cap: "Moving between planets in the browser preview, using the same arrow keys as the TV remote." } },
   { id: "dot", added: "2026-11-07T12:42:00Z", cat: "web", name: "Dot Matrix Home", board: "DOT MATRIX", stack: "HTML · webOS", desc: "An LG TV home screen with dot-matrix type, a clock and colours that follow the selected app.", rec: { src: "assets/dot.mp4", poster: "assets/dot.jpg", cap: "Browsing the sample app list while the dot-matrix colour follows the selection." } },
   { id: "crate", added: "2026-11-07T02:37:42Z", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
-  { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar folder. Every icon left of its ‹ button folds away, and one click opens them back out across the menu bar. No permissions needed, and the icons still hide with the menu bar in full-screen apps." },
+  { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar folder. Every icon left of its ‹ button folds away, and one click opens them back out across the menu bar. If there are too many to fit, swipe sideways to scroll them, even past the notch. No permissions needed." },
   { id: "ebb", added: "2026-11-07T02:37:33Z", cat: "mac", name: "Ebb", board: "EBB", stack: "Swift · macOS", desc: "Set a charge limit for a plugged-in MacBook, hold a target charge, or charge to full on demand." },
   { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
   { id: "switchboard", added: "2026-11-07T02:37:50Z", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
   { id: "promptshelf", added: "2026-11-07T02:55:38Z", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
   { id: "signupstudio", added: "2026-11-12T10:22:30Z", cat: "mac", name: "Signup Studio", board: "SIGNUP STUDIO", stack: "SwiftUI · macOS", desc: "Plans and tracks setting up profiles for my theme pages across TikTok, Instagram, YouTube and more, with copy buttons for every detail. An experimental signup window fills in the fields it recognises, and I review and submit each form myself." },
-  { id: "ledge", added: "2026-11-13T12:57:57Z", cat: "mac", name: "Ledge", board: "LEDGE", stack: "SwiftUI · macOS", desc: "A to-do list that lives in the MacBook notch. Hover over it and a panel drops down with today’s Todoist tasks, plus an on-device AI pick for what to do next. Free, offline and private." },
+  { id: "ledge", added: "2026-11-13T12:57:57Z", cat: "mac", name: "Ledge", board: "LEDGE", stack: "SwiftUI · macOS", desc: "A to-do list that lives in the MacBook notch. Hover over it and a panel drops down with today’s Todoist tasks, plus an on-device AI pick for what to do next. Lists sync with Pacer on my phone. Free, offline and private." },
   { id: "replybell", added: "2026-11-08T03:06:29Z", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
   { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
@@ -59,6 +59,8 @@ const projects = [
   { id: "switchboardmobile", added: "2026-11-17T11:57:46Z", cat: "ios", name: "Switchboard Mobile", board: "SWITCHBOARD", stack: "SwiftUI · iOS", desc: "Switchboard on iPhone: what needs my input, what’s running, what’s unopened and the usage limits for every AI tool I use. It runs entirely on the phone and never talks to my Macs." },
   { id: "brickreel", added: "2026-11-21T02:07:33Z", cat: "tools", name: "Brickreel", board: "BRICKREEL", stack: "Python · Blender", desc: "Turns one line of idea into a blocky “In this town…” story series for TikTok, Shorts and Reels. Claude writes the parts, Blender builds the characters and world in code, and each part gets voices, word-by-word captions, sound and music." },
   { id: "lookout", added: "2026-11-22T07:38:16Z", cat: "tools", name: "Lookout", board: "LOOKOUT", stack: "Python · Oracle Cloud", desc: "Runs 24/7 spotting short-video formats that are blowing up and cheap to copy, gets them made, posts them and keeps score. A cloud server scouts, a scheduled Claude task writes the briefs, my Windows PC renders, and my phone signs off." },
+  { id: "flickboard", added: "2026-11-22T10:14:56Z", cat: "mac", name: "Flickboard", board: "FLICKBOARD", stack: "Swift · macOS", desc: "A 3D fingerboard that lives on the Mac wallpaper. One shortcut turns the trackpad into the board: two fingers roll it, a flick is a trick, and window edges are rails to grind. Combos earn coins for 84 decks, grips and wheels." },
+  { id: "brim", added: "2026-11-22T11:05:19Z", cat: "mac", name: "Brim", board: "BRIM", stack: "Swift · macOS", desc: "Turns the trackpad edges into sliders. Slide up the right edge for volume and the left for brightness, swipe the bottom edge to skip tracks, and double-tap a top corner for an action you pick. Haptic ticks on every step." },
 ];
 
 const games = [
@@ -418,6 +420,40 @@ const demos = {
       T.after(4800, () => { st.textContent = "approved · rendering on PC"; st.className = "mono lo-st ok"; });
     };
     run(); T.every(7200, run);
+  },
+
+  flickboard(s, T) {
+    const tricks = ["Ollie", "Kickflip", "50-50 grind", "360 flip"];
+    s.innerHTML = `<div class="d-flick"><div class="fb-win"><span class="mono">Notes</span></div><div class="fb-board" id="fb-board"><i></i><i></i></div>
+      <div class="fb-hud"><span class="mono" id="fb-trick">Roll</span><span class="mono fb-coins" id="fb-coins">0 coins</span></div></div>`;
+    const board = $("#fb-board", s), trick = $("#fb-trick", s), coins = $("#fb-coins", s);
+    const poses = [["18%", "70%", "0deg"], ["34%", "34%", "-12deg"], ["48%", "70%", "360deg"], ["62%", "34%", "0deg"], ["74%", "40%", "720deg"]];
+    const run = () => {
+      let c = 0; board.style.transition = "none"; board.style.left = "6%"; board.style.top = "70%"; board.style.transform = "rotate(0deg)"; trick.textContent = "Roll"; coins.textContent = "0 coins";
+      T.after(60, () => (board.style.transition = ""));
+      poses.forEach(([l, t, r], i) => T.after(500 + i * 900, () => {
+        board.style.left = l; board.style.top = t; board.style.transform = `rotate(${r})`;
+        if (i > 0) { trick.textContent = tricks[i - 1]; c += [10, 25, 40, 60][i - 1]; coins.textContent = c + " coins"; }
+      }));
+    };
+    run(); T.every(5600, run);
+  },
+
+  brim(s, T) {
+    s.innerHTML = `<div class="d-brim"><div class="bm-pad" id="bm-pad"><span class="bm-edge l"></span><span class="bm-edge r"></span><span class="bm-edge b"></span><i class="bm-finger" id="bm-f"></i></div>
+      <div class="bm-hud"><div class="bm-row"><span>Volume</span><span class="bm-track"><i id="bm-vol"></i></span></div><div class="bm-row"><span>Brightness</span><span class="bm-track"><i id="bm-bri"></i></span></div><span class="mono" id="bm-st">right edge</span></div></div>`;
+    const f = $("#bm-f", s), vol = $("#bm-vol", s), bri = $("#bm-bri", s), st = $("#bm-st", s);
+    const at = (x, y, on = true) => { f.style.left = x + "%"; f.style.top = y + "%"; f.classList.toggle("on", on); };
+    const run = () => {
+      vol.style.width = "30%"; bri.style.width = "60%"; at(94, 80, false); st.textContent = "right edge · volume";
+      T.after(500, () => at(94, 80)); T.after(700, () => { at(94, 25); vol.style.width = "80%"; });
+      T.after(1800, () => { at(6, 30, false); st.textContent = "left edge · brightness"; });
+      T.after(2300, () => at(6, 30)); T.after(2500, () => { at(6, 78); bri.style.width = "25%"; });
+      T.after(3600, () => { at(20, 94, false); st.textContent = "bottom edge · next track"; });
+      T.after(4000, () => at(20, 94)); T.after(4200, () => { at(78, 94); st.textContent = "▶▶ next track"; });
+      T.after(5000, () => at(78, 94, false));
+    };
+    run(); T.every(6000, run);
   },
 
   whopclipper(s, T) {
