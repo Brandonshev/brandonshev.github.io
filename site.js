@@ -1,5 +1,5 @@
-// Showoff v3.6.0
-const VERSION = "3.6.0";
+// Showoff v3.7.0
+const VERSION = "3.7.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -45,7 +45,7 @@ const projects = [
   { id: "roomreceipt", added: "2026-11-12T12:19:28Z", cat: "web", name: "RoomReceipt", board: "ROOMRECEIPT", stack: "Next.js · offline kit", desc: "A free two-minute check of how well each room in your home is documented for insurance, plus an offline inventory kit that runs in your browser with no account. Nothing leaves your device." },
   { id: "bidbrake", added: "2026-11-12T12:19:19Z", cat: "web", name: "BidBrake", board: "BIDBRAKE", stack: "Next.js · SaaS beta", desc: "Scans a tender or RFP before a small agency commits to it, flagging mandatory gates, proof gaps, budget signals, timing risk and unanswered questions. Free public beta." },
   { id: "linkpocket", added: "2026-11-07T02:40:10Z", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
-  { id: "postline", added: "2026-11-12T10:19:17Z", cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, an MCP server, a web console and a Mac menu bar app." },
+  { id: "postline", added: "2026-11-12T10:19:17Z", live: { url: "https://app.postline.dpdns.org/", label: "Visit Postline" }, cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS · iOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, a hosted MCP server, a web console, a Mac menu bar app and an iPhone app with push notifications." },
   { id: "whopclipper", added: "2026-11-12T10:19:55Z", cat: "tools", name: "Whop Clipper", board: "WHOP CLIPPER", stack: "Python", desc: "Makes vertical clips for paid creator clipping campaigns and checks each one against that campaign’s rules. I approve every clip before it’s posted, and it tracks views and estimated earnings." },
   { id: "tradinglab", added: "2026-11-12T10:26:18Z", cat: "tools", name: "TradingLab", board: "TRADINGLAB", stack: "Python", desc: "Paper-trading bots for crypto and US stocks that run in the background on my Mac and never touch real money. Only the strategies that beat buy-and-hold in a five-year history test made the cut." },
   { id: "tutor", added: "2026-11-12T12:23:07Z", cat: "tools", name: "Adaptive Exam Tutor", board: "EXAM TUTOR", stack: "Agent skill · /tutor", desc: "An AI skill that tutors you for one exam from your own course files. It teaches in short numbered groups, tests you until you hit about 95%, then runs exam-style practice. One installer adds it to Claude Code, Codex, Gemini and more." },
@@ -54,6 +54,11 @@ const projects = [
   { id: "eyemouse", added: "2026-11-07T02:39:33Z", cat: "tools", name: "Eye Mouse", board: "EYE MOUSE", stack: "Python · OpenCV", desc: "An adaptation of rxhtt’s Eye-To-Mouse for moving the cursor with your gaze, with blink and dwell gestures." },
   { id: "skills", added: "2026-11-07T13:21:44Z", cat: "tools", name: "Claude Skills", board: "SKILLS", stack: "Agent skills", desc: "Three skills I’ve made for Claude. NESA Study Notes turns a syllabus into study notes, Saves to Notion sorts saved videos into Notion, and Watch Video lets an AI watch a video link through its caption, transcript and frames." },
   { id: "streamclips", added: "2026-10-04T16:43:52Z", cat: "tools", name: "StreamClips", board: "STREAMCLIPS", stack: "Python", desc: "A workflow for preparing authorised creator clips, with versioned releases." },
+  { id: "codedrop", added: "2026-11-21T09:54:59Z", live: { url: "https://brandonshev.github.io/codedrop/", label: "Open CodeDrop" }, cat: "web", name: "CodeDrop", board: "CODEDROP", stack: "HTML · Python", desc: "Paste text on one computer, copy it on another. One password unlocks it, and the text is encrypted in the browser before it leaves the device, so my small storage server never sees it." },
+  { id: "essayrecall", added: "2026-11-20T13:22:12Z", cat: "web", name: "Harwood Essay Recall", board: "ESSAY RECALL", stack: "HTML · Claude", desc: "A phone memoriser for my HSC Common Module essay. The essay is split into 15 blocks, and I recall each one by typing, speaking or photographing my handwriting. Every attempt is marked word for word." },
+  { id: "switchboardmobile", added: "2026-11-17T11:57:46Z", cat: "ios", name: "Switchboard Mobile", board: "SWITCHBOARD", stack: "SwiftUI · iOS", desc: "Switchboard on iPhone: what needs my input, what’s running, what’s unopened and the usage limits for every AI tool I use. It runs entirely on the phone and never talks to my Macs." },
+  { id: "brickreel", added: "2026-11-21T02:07:33Z", cat: "tools", name: "Brickreel", board: "BRICKREEL", stack: "Python · Blender", desc: "Turns one line of idea into a blocky “In this town…” story series for TikTok, Shorts and Reels. Claude writes the parts, Blender builds the characters and world in code, and each part gets voices, word-by-word captions, sound and music." },
+  { id: "lookout", added: "2026-11-22T07:38:16Z", cat: "tools", name: "Lookout", board: "LOOKOUT", stack: "Python · Oracle Cloud", desc: "Runs 24/7 spotting short-video formats that are blowing up and cheap to copy, gets them made, posts them and keeps score. A cloud server scouts, a scheduled Claude task writes the briefs, my Windows PC renders, and my phone signs off." },
 ];
 
 const games = [
@@ -330,6 +335,89 @@ const demos = {
       T.after(4600, () => logLine('<span class="pl-ok">200</span> POST /v0/…/reply'));
     };
     run(); T.every(6600, run);
+  },
+
+  codedrop(s, T) {
+    s.innerHTML = `<div class="d-drop"><div class="cd-pc"><span class="mono cd-tag">Mac</span><div class="cd-box" id="cd-a"></div><button type="button" class="mini-btn" tabindex="-1" id="cd-save">Save</button></div>
+      <div class="cd-mid"><span class="mono" id="cd-wire">waiting</span><i id="cd-dot"></i></div>
+      <div class="cd-pc"><span class="mono cd-tag">Windows PC</span><div class="cd-box" id="cd-b"></div><button type="button" class="mini-btn" tabindex="-1" id="cd-copy">Copy</button></div></div>`;
+    const a = $("#cd-a", s), b = $("#cd-b", s), wire = $("#cd-wire", s), dot = $("#cd-dot", s), save = $("#cd-save", s), copy = $("#cd-copy", s);
+    const code = "4F9A-22C7-K0Q1";
+    const run = () => {
+      a.textContent = ""; b.textContent = ""; b.className = "cd-box"; wire.textContent = "waiting"; dot.className = ""; copy.textContent = "Copy";
+      [...code].forEach((c, i) => T.after(300 + i * 55, () => (a.textContent += c)));
+      const t = 300 + code.length * 55 + 300;
+      T.after(t, () => { save.classList.add("press"); wire.textContent = "AES-GCM · encrypted"; dot.className = "go"; });
+      T.after(t + 150, () => save.classList.remove("press"));
+      T.after(t + 1300, () => { b.textContent = "••••••••"; b.className = "cd-box lock"; wire.textContent = "password?"; });
+      T.after(t + 2200, () => { b.textContent = code; b.className = "cd-box"; wire.textContent = "decrypted on this PC"; });
+      T.after(t + 3000, () => { copy.classList.add("press"); copy.textContent = "Copied"; });
+      T.after(t + 3150, () => copy.classList.remove("press"));
+    };
+    run(); T.every(7600, run);
+  },
+
+  essayrecall(s, T) {
+    const target = ["Harwood’s", "poetry", "shows", "that", "suffering", "can", "deepen", "our", "humanity."];
+    const typed = ["Harwood’s", "poetry", "shows", "that", "pain", "can", "deepen", "our", "humanity."];
+    s.innerHTML = `<div class="d-recall"><div class="er-top"><span class="mono">Block 7 of 15</span><span class="mono er-mode" id="er-mode">Typing</span></div>
+      <div class="er-ans" id="er-ans"></div><div class="er-foot"><span class="mono" id="er-score"></span><span class="er-dots" id="er-dots">${Array.from({ length: 15 }, (_, i) => `<i class="${i < 6 ? "done" : i === 6 ? "now" : ""}"></i>`).join("")}</span></div></div>`;
+    const ans = $("#er-ans", s), score = $("#er-score", s), mode = $("#er-mode", s), dots = s.querySelectorAll(".er-dots i");
+    const run = () => {
+      ans.innerHTML = ""; score.textContent = ""; score.className = "mono"; mode.textContent = "Typing"; dots[6].className = "now";
+      typed.forEach((w, i) => T.after(250 + i * 260, () => ans.insertAdjacentHTML("beforeend", `<span>${w}</span> `)));
+      T.after(2900, () => { [...ans.children].forEach((sp, i) => sp.classList.add(sp.textContent === target[i] ? "ok" : "bad")); score.textContent = "8 / 9 words · “pain” should be “suffering”"; score.className = "mono er-warn"; });
+      T.after(4600, () => { mode.textContent = "Speaking"; ans.innerHTML = target.map((w) => `<span class="ok">${w}</span>`).join(" "); score.textContent = "9 / 9 · word-perfect"; score.className = "mono er-ok"; dots[6].className = "done"; });
+    };
+    run(); T.every(7200, run);
+  },
+
+  switchboardmobile(s, T) {
+    s.innerHTML = `<div class="d-sbm"><div class="sbm-phone"><div class="sbm-bar mono">Switchboard</div>
+      <div class="sbm-sec"><b>Needs you</b><div class="sbm-row" id="sbm-need"><i class="sbm-ico c"></i><span>Claude Code</span><em>waiting</em></div></div>
+      <div class="sbm-sec"><b>Running</b><div class="sbm-row"><i class="sbm-ico g"></i><span>ChatGPT</span><em class="sbm-spin">working</em></div></div>
+      <div class="sbm-sec"><b>Usage</b><div class="sbm-use"><span>Claude</span><span class="sbm-track"><i id="sbm-u1"></i></span></div><div class="sbm-use"><span>ChatGPT</span><span class="sbm-track"><i id="sbm-u2"></i></span></div></div></div>
+      <div class="sbm-note" id="sbm-note"><b>Claude Code</b><span>Approve the plan to continue</span></div></div>`;
+    const need = $("#sbm-need", s), note = $("#sbm-note", s), u1 = $("#sbm-u1", s), u2 = $("#sbm-u2", s);
+    const run = () => {
+      need.classList.remove("hot"); note.classList.remove("show"); u1.style.width = "38%"; u2.style.width = "22%";
+      T.after(900, () => { note.classList.add("show"); need.classList.add("hot"); });
+      T.after(2600, () => (u1.style.width = "54%"));
+      T.after(3600, () => note.classList.remove("show"));
+      T.after(4200, () => (u2.style.width = "41%"));
+    };
+    run(); T.every(6400, run);
+  },
+
+  brickreel(s, T) {
+    const steps = ["Trend check", "Story · 3 parts", "Storyboard OK", "Blender render", "Voices + captions"];
+    s.innerHTML = `<div class="d-brick"><div class="br-vid"><div class="br-sky"></div><div class="br-town"><i></i><i></i><i></i></div><div class="br-guy"></div><span class="br-cap" id="br-cap"></span><span class="mono br-part" id="br-part">Part 1</span></div>
+      <div class="br-side"><span class="mono br-idea">“a town where nobody can lie”</span>${steps.map((t) => `<div class="br-step"><i></i>${t}</div>`).join("")}<span class="mono br-out" id="br-out"></span></div></div>`;
+    const rows = [...s.querySelectorAll(".br-step")], cap = $("#br-cap", s), out = $("#br-out", s), part = $("#br-part", s), vid = $(".br-vid", s);
+    const words = ["in", "this", "town…", "nobody", "can", "lie"];
+    const run = () => {
+      rows.forEach((r) => r.classList.remove("on")); cap.textContent = ""; out.textContent = ""; vid.classList.remove("live"); part.textContent = "Part 1";
+      rows.forEach((r, i) => T.after(400 + i * 520, () => r.classList.add("on")));
+      T.after(3100, () => vid.classList.add("live"));
+      words.forEach((w, i) => T.after(3200 + i * 330, () => (cap.textContent = w)));
+      T.after(5300, () => { out.textContent = "3 × 1080×1920 MP4 + post.md"; part.textContent = "Part 1 of 3"; });
+    };
+    run(); T.every(7400, run);
+  },
+
+  lookout(s, T) {
+    const accts = [["@townstories", 2.1], ["@blockdrama", 7.4], ["@robloxtales", 6.2], ["@cozybuilds", 1.3], ["@pixelplot", 5.8]];
+    s.innerHTML = `<div class="d-look"><div class="lo-list">${accts.map(([a]) => `<div class="lo-row"><span class="mono">${a}</span><span class="lo-track"><i></i></span><em class="mono"></em></div>`).join("")}</div>
+      <div class="lo-side"><span class="mono lo-k">outlier = views ÷ median</span><div class="lo-card" id="lo-card"><b>“In this world…”</b><span>3 accounts in 7 days</span><span>replicability 5 / 5</span></div><span class="mono lo-st" id="lo-st">scouting</span></div></div>`;
+    const rows = [...s.querySelectorAll(".lo-row")], card = $("#lo-card", s), st = $("#lo-st", s);
+    const run = () => {
+      rows.forEach((r) => { r.className = "lo-row"; $("i", r).style.width = "0%"; $("em", r).textContent = ""; }); card.classList.remove("show"); st.textContent = "scouting"; st.className = "mono lo-st";
+      accts.forEach(([, x], i) => T.after(300 + i * 300, () => { const r = rows[i]; $("i", r).style.width = Math.min(100, x * 12) + "%"; $("em", r).textContent = x.toFixed(1) + "×"; if (x >= 5) r.classList.add("hot"); }));
+      T.after(2200, () => { card.classList.add("show"); st.textContent = "trend · build it"; });
+      T.after(3600, () => (st.textContent = "sent to phone for sign-off"));
+      T.after(4800, () => { st.textContent = "approved · rendering on PC"; st.className = "mono lo-st ok"; });
+    };
+    run(); T.every(7200, run);
   },
 
   whopclipper(s, T) {
