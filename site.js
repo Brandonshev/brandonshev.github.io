@@ -1,5 +1,5 @@
-// Showoff v3.8.0
-const VERSION = "3.8.0";
+// Showoff v3.9.0
+const VERSION = "3.9.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -61,6 +61,9 @@ const projects = [
   { id: "lookout", added: "2026-11-22T07:38:16Z", cat: "tools", name: "Lookout", board: "LOOKOUT", stack: "Python · Oracle Cloud", desc: "Runs 24/7 spotting short-video formats that are blowing up and cheap to copy, gets them made, posts them and keeps score. A cloud server scouts, a scheduled Claude task writes the briefs, my Windows PC renders, and my phone signs off." },
   { id: "flickboard", added: "2026-11-22T10:14:56Z", cat: "mac", name: "Flickboard", board: "FLICKBOARD", stack: "Swift · macOS", desc: "A 3D fingerboard that lives on the Mac wallpaper. One shortcut turns the trackpad into the board: two fingers roll it, a flick is a trick, and window edges are rails to grind. Combos earn coins for 84 decks, grips and wheels." },
   { id: "brim", added: "2026-11-22T11:05:19Z", cat: "mac", name: "Brim", board: "BRIM", stack: "Swift · macOS", desc: "Turns the trackpad edges into sliders. Slide up the right edge for volume and the left for brightness, swipe the bottom edge to skip tracks, and double-tap a top corner for an action you pick. Haptic ticks on every step." },
+  { id: "sonar", added: "2026-11-24T13:21:02Z", source: "sonar", live: { url: "https://sonar.postline.dpdns.org/", label: "Open Sonar", note: "Sign-in required" }, cat: "tools", name: "Sonar", board: "SONAR", stack: "Python · Oracle Cloud", desc: "A trend radar that spots fast-climbing repos, products, videos, hashtags, searches and companies before everyone else. It snapshots a dozen sources, scores how much faster than usual each thing is growing, and pings my phone when something takes off." },
+  { id: "patchbay", added: "2026-11-24T13:07:47Z", cat: "tools", name: "Patchbay", board: "PATCHBAY", stack: "TypeScript · React · SQLite", desc: "A node map of everything I run, and a hub that routes messages between my apps. Draw a line on the map and the routing changes live, like Ledge sending tasks on to my phone. Still being built." },
+  { id: "toolwatcher", added: "2026-11-24T03:32:44Z", cat: "tools", name: "tool-watcher", board: "WATCHER", stack: "Shell · launchd", desc: "Hand a task to Claude Code by adding it to a list. A tiny Mac agent watches an inbox file and, the moment a new task lands, runs Claude headless and shows the result as a notification. Ledge’s “Claude” list feeds it." },
 ];
 
 const games = [
@@ -454,6 +457,59 @@ const demos = {
       T.after(5000, () => at(78, 94, false));
     };
     run(); T.every(6000, run);
+  },
+
+  sonar(s, T) {
+    const items = [["repo", "tiny-agents", "56 → 628 stars", 96], ["hashtag", "#deskreset", "3.1× normal", 71], ["product", "Notchly", "#2 today", 64], ["search", "“oracle free tier”", "rising", 52]];
+    s.innerHTML = `<div class="d-sonar"><div class="sn-radar"><i class="sn-ring"></i><i class="sn-ring r2"></i><i class="sn-sweep"></i><i class="sn-blip" id="sn-blip"></i></div>
+      <div class="sn-list">${items.map(([k, n, w]) => `<div class="sn-row"><span class="mono sn-k">${k}</span><span class="sn-n">${n}</span><span class="mono sn-w">${w}</span><b class="mono sn-s"></b></div>`).join("")}<span class="mono sn-push" id="sn-push"></span></div></div>`;
+    const rows = [...s.querySelectorAll(".sn-row")], push = $("#sn-push", s), blip = $("#sn-blip", s);
+    const run = () => {
+      rows.forEach((r) => { r.classList.remove("on"); $(".sn-s", r).textContent = ""; }); push.textContent = ""; blip.classList.remove("on");
+      items.forEach(([, , , sc], i) => T.after(400 + i * 450, () => { rows[i].classList.add("on"); $(".sn-s", rows[i]).textContent = sc; }));
+      T.after(2500, () => { blip.classList.add("on"); push.textContent = "ntfy → tiny-agents: 114× its normal rate"; });
+    };
+    run(); T.every(6400, run);
+  },
+
+  patchbay(s, T) {
+    s.innerHTML = `<div class="d-patch"><div class="pb-in"><svg viewBox="0 0 360 180" aria-hidden="true">
+      <path class="pb-wire" d="M76 49 C150 49 140 92 206 92"/><path class="pb-wire" d="M76 131 C150 131 140 92 206 92"/><path class="pb-wire new" id="pb-new" d="M250 92 C285 92 270 49 300 49"/>
+      <circle class="pb-dot" id="pb-dot" r="4"/></svg>
+      <div class="pb-node" style="left:14px;top:34px">Ledge</div><div class="pb-node" style="left:14px;top:116px">Sonar</div>
+      <div class="pb-node hub" style="left:206px;top:76px">Hub</div><div class="pb-node" id="pb-pace" style="left:300px;top:34px">Pace</div>
+      <span class="mono pb-log" id="pb-log">2 rules</span></div></div>`;
+    const wire = $("#pb-new", s), dot = $("#pb-dot", s), pace = $("#pb-pace", s), log = $("#pb-log", s);
+    const len = wire.getTotalLength();
+    const run = () => {
+      wire.style.transition = "none"; wire.style.strokeDasharray = len; wire.style.strokeDashoffset = len; pace.classList.remove("on"); log.textContent = "2 rules"; dot.style.opacity = 0;
+      T.after(80, () => (wire.style.transition = ""));
+      T.after(900, () => { wire.style.strokeDashoffset = 0; log.textContent = "drawing a line…"; });
+      T.after(2000, () => { pace.classList.add("on"); log.textContent = "rule added · task.created → Pace"; });
+      T.after(2900, () => {
+        const a = s.querySelector(".pb-wire"); const L = a.getTotalLength(); const t0 = performance.now(); dot.style.opacity = 1;
+        T.frame((t) => { const k = Math.min((t - t0) / 1400, 1); const p = k < 0.6 ? a.getPointAtLength(L * k / 0.6) : wire.getPointAtLength(len * (k - 0.6) / 0.4); dot.setAttribute("cx", p.x); dot.setAttribute("cy", p.y); if (k >= 1) dot.style.opacity = 0; });
+        log.textContent = "Ledge → Hub → Pace · delivered";
+      });
+    };
+    run(); T.every(6400, run);
+  },
+
+  toolwatcher(s, T) {
+    s.innerHTML = `<div class="d-watch"><div class="tw-list"><span class="mono tw-h">Ledge · Claude</span><div id="tw-items"></div></div>
+      <div class="tw-side"><span class="mono tw-file">inbox.json</span><div class="tw-log mono" id="tw-log"></div></div>
+      <div class="tw-note" id="tw-note"><b>tool-watcher</b><span>Done: renamed 41 screenshots by date</span></div></div>`;
+    const items = $("#tw-items", s), log = $("#tw-log", s), note = $("#tw-note", s);
+    const add = (t, cls = "") => items.insertAdjacentHTML("beforeend", `<div class="tw-item ${cls}"><i></i>${t}</div>`);
+    const run = () => {
+      items.innerHTML = ""; log.innerHTML = ""; note.classList.remove("show"); add("Tidy the Downloads folder", "done");
+      T.after(700, () => add("Rename my screenshots by date", "new"));
+      T.after(1300, () => (log.innerHTML = "<div>file changed · 1 new task</div>"));
+      T.after(2000, () => log.insertAdjacentHTML("beforeend", "<div>claude -p …</div>"));
+      T.after(3600, () => { log.insertAdjacentHTML("beforeend", "<div class='tw-ok'>done · 1 task</div>"); note.classList.add("show"); $(".tw-item.new", s).classList.add("done"); });
+      T.after(5600, () => note.classList.remove("show"));
+    };
+    run(); T.every(6800, run);
   },
 
   whopclipper(s, T) {
@@ -1026,6 +1082,31 @@ function renderGrid() {
   grid.querySelectorAll(".stage").forEach((s) => io.observe(s));
 }
 
+/* ---------- Websites ---------- */
+function renderSites() {
+  const sites = projects.filter((p) => p.live);
+  const host = (u) => new URL(u).host.replace(/^www\./, "");
+  $("#site-list").innerHTML = sites.map((p) => `
+    <article class="site">
+      <a class="site-frame" href="${p.live.url}" target="_blank" rel="noopener" aria-label="Open ${esc(p.name)}">
+        <span class="site-bar"><i></i><i></i><i></i><span class="mono">${esc(host(p.live.url))}</span></span>
+        <span class="stage" data-demo="${p.id}" aria-hidden="true"></span>
+      </a>
+      <div class="site-body">
+        <h3>${esc(p.name)}</h3>
+        <p>${esc(p.desc)}</p>
+        <div class="card-actions"><a class="btn btn-secondary site-btn" href="${p.live.url}" target="_blank" rel="noopener">${esc(p.live.label)}${ICON.out}</a>${p.live.note ? `<span class="mono site-note">${esc(p.live.note)}</span>` : ""}</div>
+      </div>
+    </article>`).join("");
+  $("#count-sites").textContent = sites.length;
+  const running = new Map();
+  const io = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => {
+    if (isIntersecting && !running.has(target)) { const T = timers(); running.set(target, T); try { demos[target.dataset.demo](target, T); } catch (err) { console.error(err); } }
+    else if (!isIntersecting && running.has(target)) { running.get(target).clear(); running.delete(target); }
+  }), { rootMargin: "80px" });
+  $("#site-list").querySelectorAll(".stage").forEach((st) => io.observe(st));
+}
+
 function renderGames() {
   $("#game-list").innerHTML = games.map((g) => g.soon ? `
     <article class="game soon">
@@ -1122,6 +1203,7 @@ function initCarousel() {
 }
 
 renderGrid();
+renderSites();
 renderGames();
 initBoard();
 initCarousel();
