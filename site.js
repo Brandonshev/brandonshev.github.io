@@ -1,5 +1,5 @@
-// Showoff v3.9.0
-const VERSION = "3.9.0";
+// Showoff v3.10.0
+const VERSION = "3.10.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -25,14 +25,14 @@ const projects = [
   { id: "crate", added: "2026-11-07T02:37:42Z", cat: "mac", name: "Crate", board: "CRATE", stack: "Swift · macOS", desc: "Explore your music library as a map you can wander through, with a queue and saved sessions." },
   { id: "barback", added: "2026-11-07T02:37:26Z", cat: "mac", name: "Barback", board: "BARBACK", stack: "Swift · macOS", desc: "A menu bar folder. Every icon left of its ‹ button folds away, and one click opens them back out across the menu bar. If there are too many to fit, swipe sideways to scroll them, even past the notch. No permissions needed." },
   { id: "ebb", added: "2026-11-07T02:37:33Z", cat: "mac", name: "Ebb", board: "EBB", stack: "Swift · macOS", desc: "Set a charge limit for a plugged-in MacBook, hold a target charge, or charge to full on demand." },
-  { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop with a Mac host and viewers for Mac, iPhone and iPad." },
+  { id: "farsight", added: "2026-11-07T02:37:58Z", cat: "mac", name: "Farsight", board: "FARSIGHT", stack: "Swift · Apple platforms", desc: "An encrypted remote desktop. Control my Mac or Windows PC from my Mac, iPhone or iPad, at home or over mobile data through my own relay server, with a key bar for Windows shortcuts on the phone." },
   { id: "switchboard", added: "2026-11-07T02:37:50Z", cat: "mac", name: "Switchboard", board: "SWITCHBOARD", stack: "Swift · macOS", desc: "A dashboard and menu bar app for tracking activity and usage across AI tools." },
   { id: "promptshelf", added: "2026-11-07T02:55:38Z", cat: "mac", name: "Prompt Shelf", board: "PROMPT SHELF", stack: "Swift · Claude Code", desc: "Load, track and copy sets of prompts from the Mac menu bar, with a Claude Code plugin and hook." },
   { id: "signupstudio", added: "2026-11-12T10:22:30Z", cat: "mac", name: "Signup Studio", board: "SIGNUP STUDIO", stack: "SwiftUI · macOS", desc: "Plans and tracks setting up profiles for my theme pages across TikTok, Instagram, YouTube and more, with copy buttons for every detail. An experimental signup window fills in the fields it recognises, and I review and submit each form myself." },
-  { id: "ledge", added: "2026-11-13T12:57:57Z", cat: "mac", name: "Ledge", board: "LEDGE", stack: "SwiftUI · macOS", desc: "A to-do list that lives in the MacBook notch. Hover over it and a panel drops down with today’s Todoist tasks, plus an on-device AI pick for what to do next. Lists sync with Pacer on my phone. Free, offline and private." },
+  { id: "ledge", added: "2026-11-13T12:57:57Z", cat: "mac", name: "Ledge", board: "LEDGE", stack: "SwiftUI · macOS", desc: "A to-do list that lives in the MacBook notch. Hover over it and a panel drops down with today’s Todoist tasks, plus an on-device AI pick for what to do next. Lists sync with Pacer on my phone, and a “Claude” list hands tasks straight to Claude Code. Free, offline and private." },
   { id: "replybell", added: "2026-11-08T03:06:29Z", cat: "mac", name: "Reply Bell", board: "REPLY BELL", stack: "Swift · macOS", desc: "A menu bar app that pings and shows a banner when an AI chat finishes replying, and turns amber when it’s waiting on your approval. Watches Claude, Codex, Gemini, Grok Bot and more." },
   { id: "knockswitch", added: "2026-11-07T02:40:03Z", cat: "mac", name: "KnockSwitch", board: "KNOCKSWITCH", stack: "Swift · macOS", desc: "A menu bar experiment that listens for a door knock, pauses media and switches desktops." },
-  { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning and focus tools, plus an Apple Watch app and widgets." },
+  { id: "pace", added: "2026-11-07T02:36:40Z", cat: "ios", name: "Pace", board: "PACE", stack: "Swift · iOS", desc: "An iPhone planner with a calendar, assessment scanning, focus tools and my Ledge lists, synced with the Mac. Shows battery for my phone, Mac and watch, with an Apple Watch app and widgets." },
   { id: "pocket", added: "2026-11-07T02:37:17Z", cat: "ios", name: "Pocket Games", board: "POCKET GAMES", stack: "SwiftUI · iOS", desc: "Two iOS games, Meadow Mates and Overpacked, with a companion website." },
   { id: "proofer", added: "2026-11-08T14:04:07Z", cat: "ios", name: "Proofer", board: "PROOFER", stack: "SwiftUI · iPadOS · macOS", desc: "A maths notebook for iPad and Mac. Write your working with Apple Pencil, pin the question, and Proofer checks every line, marking each step right or wrong and explaining exactly where it went wrong." },
   { id: "studylock", added: "2026-11-08T03:25:58Z", cat: "ios", name: "studylock", board: "STUDYLOCK", stack: "SwiftUI · iOS", desc: "A Screen Time study lock for HSC students, with Barnaby the Scholar Quokka. Apps stay locked until you photograph your notes and score 90% on a quiz made from them. Every pass feeds Barnaby and earns gems for his wardrobe." },
@@ -45,9 +45,9 @@ const projects = [
   { id: "roomreceipt", added: "2026-11-12T12:19:28Z", cat: "web", name: "RoomReceipt", board: "ROOMRECEIPT", stack: "Next.js · offline kit", desc: "A free two-minute check of how well each room in your home is documented for insurance, plus an offline inventory kit that runs in your browser with no account. Nothing leaves your device." },
   { id: "bidbrake", added: "2026-11-12T12:19:19Z", cat: "web", name: "BidBrake", board: "BIDBRAKE", stack: "Next.js · SaaS beta", desc: "Scans a tender or RFP before a small agency commits to it, flagging mandatory gates, proof gaps, budget signals, timing risk and unanswered questions. Free public beta." },
   { id: "linkpocket", added: "2026-11-07T02:40:10Z", cat: "web", name: "Link Pocket", board: "LINK POCKET", stack: "JavaScript · Chrome", desc: "Save a page and close its tab in one click. Browse saved links by domain or search the library." },
-  { id: "postline", added: "2026-11-12T10:19:17Z", live: { url: "https://app.postline.dpdns.org/", label: "Visit Postline" }, cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS · iOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, a hosted MCP server, a web console, a Mac menu bar app and an iPhone app with push notifications." },
+  { id: "postline", added: "2026-11-12T10:19:17Z", live: { url: "https://app.postline.dpdns.org/", label: "Visit Postline" }, cat: "tools", name: "Postline", board: "POSTLINE", stack: "Node.js · macOS · iOS", desc: "Self-hosted email inboxes for AI agents. Make as many addresses as you need, with threads, webhooks, custom domains, a hosted MCP server, a web console, a Mac menu bar app and an iPhone app with push notifications and inbox categories." },
   { id: "whopclipper", added: "2026-11-12T10:19:55Z", cat: "tools", name: "Whop Clipper", board: "WHOP CLIPPER", stack: "Python", desc: "Makes vertical clips for paid creator clipping campaigns and checks each one against that campaign’s rules. I approve every clip before it’s posted, and it tracks views and estimated earnings." },
-  { id: "tradinglab", added: "2026-11-12T10:26:18Z", cat: "tools", name: "TradingLab", board: "TRADINGLAB", stack: "Python", desc: "Paper-trading bots for crypto and US stocks that run in the background on my Mac and never touch real money. Only the strategies that beat buy-and-hold in a five-year history test made the cut." },
+  { id: "tradinglab", added: "2026-11-12T10:26:18Z", cat: "tools", name: "TradingLab", board: "TRADINGLAB", stack: "Python", desc: "Paper-trading bots for crypto and US stocks that run 24/7 on my server and never touch real money. Only strategies that beat buy-and-hold in a history test made the cut, plus a six-agent desk that scans, vets, sizes and logs every trade." },
   { id: "tutor", added: "2026-11-12T12:23:07Z", cat: "tools", name: "Adaptive Exam Tutor", board: "EXAM TUTOR", stack: "Agent skill · /tutor", desc: "An AI skill that tutors you for one exam from your own course files. It teaches in short numbered groups, tests you until you hit about 95%, then runs exam-style practice. One installer adds it to Claude Code, Codex, Gemini and more." },
   { id: "bizplugins", added: "2026-11-12T12:19:37Z", cat: "tools", name: "Business Plugins", board: "BIZ PLUGINS", stack: "Python · MCP", desc: "Three local MCP plugins for small businesses. ClientReport compares campaign metrics month to month, QuoteKit builds quotes with discount and GST, and MarginLens finds products losing money." },
   { id: "serieskit", added: "2026-11-12T12:01:46Z", cat: "tools", name: "Serieskit", board: "SERIESKIT", stack: "Python · Claude Code", desc: "Turns a one-line idea into a vote-driven animated series for Shorts, Reels and TikTok. Claude writes, voices, draws and renders each episode in code, then writes the next one from the audience vote." },
@@ -61,9 +61,10 @@ const projects = [
   { id: "lookout", added: "2026-11-22T07:38:16Z", cat: "tools", name: "Lookout", board: "LOOKOUT", stack: "Python · Oracle Cloud", desc: "Runs 24/7 spotting short-video formats that are blowing up and cheap to copy, gets them made, posts them and keeps score. A cloud server scouts, a scheduled Claude task writes the briefs, my Windows PC renders, and my phone signs off." },
   { id: "flickboard", added: "2026-11-22T10:14:56Z", cat: "mac", name: "Flickboard", board: "FLICKBOARD", stack: "Swift · macOS", desc: "A 3D fingerboard that lives on the Mac wallpaper. One shortcut turns the trackpad into the board: two fingers roll it, a flick is a trick, and window edges are rails to grind. Combos earn coins for 84 decks, grips and wheels." },
   { id: "brim", added: "2026-11-22T11:05:19Z", cat: "mac", name: "Brim", board: "BRIM", stack: "Swift · macOS", desc: "Turns the trackpad edges into sliders. Slide up the right edge for volume and the left for brightness, swipe the bottom edge to skip tracks, and double-tap a top corner for an action you pick. Haptic ticks on every step." },
-  { id: "sonar", added: "2026-11-24T13:21:02Z", source: "sonar", live: { url: "https://sonar.postline.dpdns.org/", label: "Open Sonar", note: "Sign-in required" }, cat: "tools", name: "Sonar", board: "SONAR", stack: "Python · Oracle Cloud", desc: "A trend radar that spots fast-climbing repos, products, videos, hashtags, searches and companies before everyone else. It snapshots a dozen sources, scores how much faster than usual each thing is growing, and pings my phone when something takes off." },
-  { id: "patchbay", added: "2026-11-24T13:07:47Z", cat: "tools", name: "Patchbay", board: "PATCHBAY", stack: "TypeScript · React · SQLite", desc: "A node map of everything I run, and a hub that routes messages between my apps. Draw a line on the map and the routing changes live, like Ledge sending tasks on to my phone. Still being built." },
+  { id: "sonar", added: "2026-11-24T13:21:02Z", source: "sonar", live: { url: "https://sonar.postline.dpdns.org/", label: "Open Sonar", note: "Sign-in required" }, cat: "tools", name: "Sonar", board: "SONAR", stack: "Python · Oracle Cloud", desc: "A trend radar that spots fast-climbing repos, products, videos, hashtags, searches and companies before everyone else. It snapshots a dozen sources, scores how much faster than usual each thing is growing, and pings my phone when something takes off, plus a daily digest email." },
+  { id: "patchbay", added: "2026-11-24T13:07:47Z", cat: "tools", name: "Patchbay", board: "PATCHBAY", stack: "TypeScript · React · SQLite", desc: "A node map of everything I run, and a hub that routes messages between my apps. Draw a line on the map and the routing changes live, like Ledge sending tasks on to my phone. Small agents report on each machine, and there’s an iPhone app. Still being built." },
   { id: "toolwatcher", added: "2026-11-24T03:32:44Z", cat: "tools", name: "tool-watcher", board: "WATCHER", stack: "Shell · launchd", desc: "Hand a task to Claude Code by adding it to a list. A tiny Mac agent watches an inbox file and, the moment a new task lands, runs Claude headless and shows the result as a notification. Ledge’s “Claude” list feeds it." },
+  { id: "lull", added: "2026-11-24T15:05:00Z", cat: "ios", name: "Lull", board: "LULL", stack: "SwiftUI · WidgetKit", desc: "Tells you the best time to order food delivery. It scores every 15 minutes of the day from the weather, rushes and public holidays, learns from how long your orders actually took, and has a widget for the best window." },
 ];
 
 const games = [
@@ -510,6 +511,22 @@ const demos = {
       T.after(5600, () => note.classList.remove("show"));
     };
     run(); T.every(6800, run);
+  },
+
+  lull(s, T) {
+    const sc = [42, 38, 55, 71, 83, 88, 79, 52, 34, 30, 46, 64, 77, 69, 58, 49];
+    const lbl = (v) => (v >= 75 ? "Great" : v >= 60 ? "Good" : v >= 45 ? "Okay" : "Busy");
+    s.innerHTML = `<div class="d-lull"><div class="ll-top"><div><span class="mono ll-k">Best window</span><b id="ll-best">—</b></div><span class="ll-badge mono" id="ll-badge"></span></div>
+      <div class="ll-bars">${sc.map(() => `<i></i>`).join("")}</div><div class="ll-axis mono"><span>5 pm</span><span>7 pm</span><span>9 pm</span></div><span class="mono ll-why" id="ll-why"></span></div>`;
+    const bars = [...s.querySelectorAll(".ll-bars i")], best = $("#ll-best", s), badge = $("#ll-badge", s), why = $("#ll-why", s);
+    const reasons = ["After the lunch rush", "Light rain forecast", "Before the dinner rush", "Your usual dinner time"];
+    const run = () => {
+      bars.forEach((b) => { b.style.height = "6%"; b.className = ""; }); best.textContent = "—"; badge.textContent = ""; why.textContent = "";
+      sc.forEach((v, i) => T.after(200 + i * 70, () => { bars[i].style.height = v + "%"; bars[i].className = v >= 75 ? "g" : v >= 60 ? "o" : ""; }));
+      T.after(1600, () => { bars[5].classList.add("pick"); best.textContent = "6:15 – 6:45 pm"; badge.textContent = `88 · ${lbl(88)}`; why.textContent = "Before the dinner rush · dry evening"; });
+      T.after(3600, () => { bars[5].classList.remove("pick"); bars[12].classList.add("pick"); best.textContent = "8:00 – 8:30 pm"; badge.textContent = `77 · ${lbl(77)}`; why.textContent = "After the dinner rush"; });
+    };
+    run(); T.every(6400, run);
   },
 
   whopclipper(s, T) {
