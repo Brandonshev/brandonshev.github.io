@@ -1,6 +1,21 @@
 {
-  "generated": "2026-11-25T02:39:32Z",
+  "generated": "2026-11-25T03:57:09Z",
   "items": [
+    {
+      "repo": "sonar",
+      "url": "https://github.com/Brandonshev/sonar",
+      "week": "2026-W48",
+      "week_start": "22 Nov 2026",
+      "week_end": "29 Nov 2026",
+      "version": "v1.1.0",
+      "summary": "Shipped v1.1.0 with 3 features, 2 fixes and 13 changes. Highlight: ARM server handoff: current server state, leave app moves to Brandon.",
+      "commits": 30,
+      "highlights": [
+        "ARM server handoff: current server state, leave app moves to Brandon",
+        "Add instaloader==4.16 (pinned) for the Instagram source",
+        "Dashboard: send plain-http visitors to https, add HSTS"
+      ]
+    },
     {
       "repo": "codedrop",
       "url": "https://github.com/Brandonshev/codedrop",
