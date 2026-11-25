@@ -1,5 +1,5 @@
-// Showoff v3.11.2
-const VERSION = "3.11.2";
+// Showoff v3.12.0
+const VERSION = "3.12.0";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -60,11 +60,13 @@ const projects = [
   { id: "brickreel", added: "2026-11-21T02:07:33Z", cat: "tools", name: "Brickreel", board: "BRICKREEL", stack: "Python · Blender", desc: "Turns one line of idea into a blocky “In this town…” story series for TikTok, Shorts and Reels. Claude writes the parts, Blender builds the characters and world in code, and each part gets voices, word-by-word captions, sound and music." },
   { id: "lookout", added: "2026-11-22T07:38:16Z", cat: "tools", name: "Lookout", board: "LOOKOUT", stack: "Python · Oracle Cloud", desc: "Runs 24/7 on my server spotting short-video formats that are blowing up and cheap to copy. It finds the channels behind this week’s top Shorts, scores every video against its channel’s normal, takes in Sonar’s trends, and pings my phone when a format takes off. It has its own tab on Sonar’s dashboard, and posting is switched off for now." },
   { id: "flickboard", added: "2026-11-22T10:14:56Z", cat: "mac", name: "Flickboard", board: "FLICKBOARD", stack: "Swift · macOS", desc: "A 3D fingerboard that lives on the Mac wallpaper. One shortcut turns the trackpad into the board: two fingers roll it, a flick is a trick, and window edges are rails to grind. Combos earn coins for 84 decks, grips and wheels." },
-  { id: "brim", added: "2026-11-22T11:05:19Z", cat: "mac", name: "Brim", board: "BRIM", stack: "Swift · macOS", desc: "Turns the trackpad edges into sliders. Slide up the right edge for volume and the left for brightness, swipe the bottom edge to skip tracks, and double-tap a top corner for an action you pick. Haptic ticks on every step." },
+  { id: "brim", added: "2026-11-22T11:05:19Z", cat: "mac", name: "Brim", board: "BRIM", stack: "Swift · macOS", desc: "Turns the trackpad edges into sliders. Slide up the right edge for volume and the left for brightness, swipe the bottom edge to skip tracks, and double-tap a top corner to open an app you pick. Hold Fn on the brightness edge for the keyboard backlight." },
   { id: "sonar", added: "2026-11-24T13:21:02Z", source: "sonar", live: { url: "https://sonar.postline.dpdns.org/", label: "Open Sonar", note: "Sign-in required" }, cat: "tools", name: "Sonar", board: "SONAR", stack: "Python · Oracle Cloud", desc: "A trend radar that spots fast-climbing repos, products, videos, hashtags, searches and companies before everyone else. It snapshots a dozen sources, scores how much faster than usual each thing is growing, and pings my phone when something takes off, plus a daily digest email." },
   { id: "patchbay", added: "2026-11-24T13:07:47Z", cat: "tools", name: "Patchbay", board: "PATCHBAY", stack: "TypeScript · React · SQLite", desc: "A node map of everything I run, and a hub that routes messages between my apps. Draw a line on the map and the routing changes live, like Ledge sending tasks on to my phone. Small agents report on each machine, and there’s an iPhone app. Still being built." },
   { id: "toolwatcher", added: "2026-11-24T03:32:44Z", cat: "tools", name: "tool-watcher", board: "WATCHER", stack: "Shell · launchd", desc: "Hand a task to Claude Code by adding it to a list. A tiny Mac agent watches an inbox file and, the moment a new task lands, runs Claude headless and shows the result as a notification. Ledge’s “Claude” list feeds it." },
   { id: "lull", added: "2026-11-24T15:05:00Z", cat: "ios", name: "Lull", board: "LULL", stack: "SwiftUI · WidgetKit", desc: "Tells you the best time to order food delivery. It scores every 15 minutes of the day from the weather, rushes and public holidays, learns from how long your orders actually took, and has a widget for the best window." },
+  { id: "dockyard", added: "2026-11-25T03:37:19Z", cat: "tools", name: "Dockyard", board: "DOCKYARD", stack: "FastAPI · SwiftUI", desc: "One dashboard for all my apps: the version, last commit and CI status of every repo, uptime checks on everything I host, and a weekly changelog of what shipped. A crane in the Mac menu bar gets a dot when something breaks, and it writes the Recently shipped list on this site." },
+  { id: "tally", added: "2026-11-25T03:43:56Z", cat: "tools", name: "Tally", board: "TALLY", stack: "FastAPI · SQLite", desc: "A stats hub for my theme pages. Every post is snapshotted at 1 hour, 24 hours, 3 days and a week, scored against its own account’s normal and tagged with its hook style, so it learns which hooks actually work. Still being built." },
 ];
 
 const games = [
@@ -527,6 +529,36 @@ const demos = {
       T.after(3600, () => { bars[5].classList.remove("pick"); bars[12].classList.add("pick"); best.textContent = "8:00 – 8:30 pm"; badge.textContent = `77 · ${lbl(77)}`; why.textContent = "After the dinner rush"; });
     };
     run(); T.every(6400, run);
+  },
+
+  dockyard(s, T) {
+    const repos = [["sonar", "v1.1.0", "ok"], ["postline", "0.1.0", "ok"], ["patchbay", "0.4.1", "ok"], ["scout", "0.16.0", "stale"], ["lookout", "—", "nover"]];
+    const svcs = ["Postline", "Sonar", "CodeDrop", "Farsight"];
+    s.innerHTML = `<div class="d-dock"><div class="dk-col"><span class="mono dk-h">Repos</span>${repos.map(([n, v, f]) => `<div class="dk-row"><span>${n}</span><span class="mono">${v}</span><i class="dk-flag ${f}">${f === "stale" ? "stale" : f === "nover" ? "no version" : ""}</i></div>`).join("")}</div>
+      <div class="dk-col"><span class="mono dk-h">Uptime</span>${svcs.map((n) => `<div class="dk-row"><i class="dk-dot"></i><span>${n}</span><span class="dk-spark">${Array.from({ length: 16 }, () => "<b></b>").join("")}</span></div>`).join("")}<span class="mono dk-ship" id="dk-ship"></span></div></div>`;
+    const dots = [...s.querySelectorAll(".dk-dot")], ship = $("#dk-ship", s), far = s.querySelectorAll(".dk-spark")[3].children;
+    const run = () => {
+      dots.forEach((d) => (d.className = "dk-dot up")); [...far].forEach((b) => (b.className = "")); ship.textContent = "";
+      T.after(1500, () => { dots[3].className = "dk-dot down"; far[15].className = "x"; ship.textContent = "ntfy: Farsight is down"; });
+      T.after(3400, () => { dots[3].className = "dk-dot up"; ship.textContent = "ntfy: Farsight back up after 2 min"; });
+      T.after(5000, () => (ship.textContent = "Shiplog: 132 commits across 19 repos"));
+    };
+    run(); T.every(7200, run);
+  },
+
+  tally(s, T) {
+    const hooks = [["Question", 1.0], ["Shock stat", 2.4], ["“POV:”", 1.6], ["Cold open", 0.7]];
+    s.innerHTML = `<div class="d-tally"><div class="ta-snap"><span class="mono ta-h">One post</span>${["1 h", "24 h", "72 h", "7 d"].map((b) => `<div class="ta-b"><span class="mono">${b}</span><span class="ta-track"><i></i></span><em class="mono"></em></div>`).join("")}</div>
+      <div class="ta-hooks"><span class="mono ta-h">Hook style vs normal</span>${hooks.map(([h]) => `<div class="ta-b"><span>${h}</span><span class="ta-track"><i></i></span><em class="mono"></em></div>`).join("")}</div></div>`;
+    const snaps = [...s.querySelectorAll(".ta-snap .ta-b")], hk = [...s.querySelectorAll(".ta-hooks .ta-b")];
+    const views = [1200, 18400, 41000, 52300];
+    const run = () => {
+      [...snaps, ...hk].forEach((r) => { $("i", r).style.width = "0%"; $("em", r).textContent = ""; r.classList.remove("best"); });
+      views.forEach((v, i) => T.after(300 + i * 500, () => { $("i", snaps[i]).style.width = (v / 52300) * 100 + "%"; $("em", snaps[i]).textContent = v >= 1000 ? (v / 1000).toFixed(1) + "k" : v; }));
+      hooks.forEach(([, x], i) => T.after(2500 + i * 300, () => { $("i", hk[i]).style.width = (x / 2.4) * 100 + "%"; $("em", hk[i]).textContent = x.toFixed(1) + "×"; }));
+      T.after(3900, () => hk[1].classList.add("best"));
+    };
+    run(); T.every(6800, run);
   },
 
   whopclipper(s, T) {
@@ -1124,6 +1156,39 @@ function renderSites() {
   $("#site-list").querySelectorAll(".stage").forEach((st) => io.observe(st));
 }
 
+/* ---------- Recently shipped (written weekly by Dockyard) ---------- */
+function renderShipped() {
+  const list = $("#shipped-list");
+  if (!list) return;
+  fetch("recently-shipped.json", { cache: "no-cache" })
+    .then((r) => (r.ok ? r.json() : { items: [] }))
+    .then(({ items = [] }) => {
+      if (!items.length) return;
+      for (const i of items.slice(0, 6)) {
+        const p = projects.find((x) => x.source === i.repo || x.id === i.repo);
+        const li = document.createElement("li");
+        const head = document.createElement("div");
+        head.className = "shipped-head";
+        const a = document.createElement("a");
+        a.href = p ? `#p-${p.id}` : i.url;
+        a.textContent = p ? p.name : i.repo;
+        const v = document.createElement("span");
+        v.className = "mono shipped-v";
+        v.textContent = i.version || "";
+        const when = document.createElement("time");
+        when.className = "mono";
+        when.textContent = `Week of ${i.week_start}`;
+        head.append(a, v, when);
+        const note = document.createElement("p");
+        note.textContent = i.summary; // textContent, never innerHTML: commit text is not markup
+        li.append(head, note);
+        list.append(li);
+      }
+      $("#shipped").hidden = false;
+    })
+    .catch(() => {});
+}
+
 function renderGames() {
   $("#game-list").innerHTML = games.map((g) => g.soon ? `
     <article class="game soon">
@@ -1221,6 +1286,7 @@ function initCarousel() {
 
 renderGrid();
 renderSites();
+renderShipped();
 renderGames();
 initBoard();
 initCarousel();
