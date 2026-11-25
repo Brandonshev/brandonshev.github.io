@@ -1,5 +1,5 @@
-// Showoff v3.12.0
-const VERSION = "3.12.0";
+// Showoff v3.12.1
+const VERSION = "3.12.1";
 
 /* ---------- Data ---------- */
 // One line per filter: label, and the short note shown in the About panel
@@ -65,7 +65,7 @@ const projects = [
   { id: "patchbay", added: "2026-11-24T13:07:47Z", cat: "tools", name: "Patchbay", board: "PATCHBAY", stack: "TypeScript · React · SQLite", desc: "A node map of everything I run, and a hub that routes messages between my apps. Draw a line on the map and the routing changes live, like Ledge sending tasks on to my phone. Small agents report on each machine, and there’s an iPhone app. Still being built." },
   { id: "toolwatcher", added: "2026-11-24T03:32:44Z", cat: "tools", name: "tool-watcher", board: "WATCHER", stack: "Shell · launchd", desc: "Hand a task to Claude Code by adding it to a list. A tiny Mac agent watches an inbox file and, the moment a new task lands, runs Claude headless and shows the result as a notification. Ledge’s “Claude” list feeds it." },
   { id: "lull", added: "2026-11-24T15:05:00Z", cat: "ios", name: "Lull", board: "LULL", stack: "SwiftUI · WidgetKit", desc: "Tells you the best time to order food delivery. It scores every 15 minutes of the day from the weather, rushes and public holidays, learns from how long your orders actually took, and has a widget for the best window." },
-  { id: "dockyard", added: "2026-11-25T03:37:19Z", cat: "tools", name: "Dockyard", board: "DOCKYARD", stack: "FastAPI · SwiftUI", desc: "One dashboard for all my apps: the version, last commit and CI status of every repo, uptime checks on everything I host, and a weekly changelog of what shipped. A crane in the Mac menu bar gets a dot when something breaks, and it writes the Recently shipped list on this site." },
+  { id: "dockyard", added: "2026-11-25T03:37:19Z", live: { url: "https://dockyard.postline.dpdns.org/", label: "Open Dockyard", note: "Sign-in required" }, cat: "tools", name: "Dockyard", board: "DOCKYARD", stack: "FastAPI · SwiftUI", desc: "One dashboard for all my apps: the version, last commit and CI status of every repo, uptime checks on everything I host, and a weekly changelog of what shipped. A crane in the Mac menu bar gets a dot when something breaks, and it writes the Recently shipped list on this site." },
   { id: "tally", added: "2026-11-25T03:43:56Z", cat: "tools", name: "Tally", board: "TALLY", stack: "FastAPI · SQLite", desc: "A stats hub for my theme pages. Every post is snapshotted at 1 hour, 24 hours, 3 days and a week, scored against its own account’s normal and tagged with its hook style, so it learns which hooks actually work. Still being built." },
 ];
 
