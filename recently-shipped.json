@@ -1,0 +1,40 @@
+{
+  "generated": "2026-11-25T02:39:32Z",
+  "items": [
+    {
+      "repo": "codedrop",
+      "url": "https://github.com/Brandonshev/codedrop",
+      "week": "2026-W47",
+      "week_start": "15 Nov 2026",
+      "week_end": "22 Nov 2026",
+      "version": "v2.0.0",
+      "summary": "Shipped v2.0.0.",
+      "commits": 2,
+      "highlights": []
+    },
+    {
+      "repo": "hsc-essay-engine",
+      "url": "https://github.com/Brandonshev/hsc-essay-engine",
+      "week": "2026-W46",
+      "week_start": "8 Nov 2026",
+      "week_end": "15 Nov 2026",
+      "version": "v2.1.0",
+      "summary": "Shipped v2.1.0 with 1 feature. Highlight: Add HANDOFF.md: how to build an app in this style.",
+      "commits": 2,
+      "highlights": [
+        "Add HANDOFF.md: how to build an app in this style"
+      ]
+    },
+    {
+      "repo": "hsc-essay-engine",
+      "url": "https://github.com/Brandonshev/hsc-essay-engine",
+      "week": "2026-W45",
+      "week_start": "1 Nov 2026",
+      "week_end": "8 Nov 2026",
+      "version": "v2.0.0",
+      "summary": "Shipped v2.0.0 with 1 change.",
+      "commits": 2,
+      "highlights": []
+    }
+  ]
+}
